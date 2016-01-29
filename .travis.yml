@@ -1,0 +1,6 @@
+language: ruby
+before_script:
+- gem install rspec
+- git clone https://github.com/ga-dc/lesson-plan-checklist
+script:
+- rspec lesson-plan-checklist
