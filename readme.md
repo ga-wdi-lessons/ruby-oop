@@ -14,219 +14,180 @@ See also: https://github.com/ga-wdi-lessons/ruby-oop-inheritance
 
 ## Framing: What is OOP? (5 minutes)
 
-Object-oriented programming is the idea that our programs consist mainly of
-objects, which have attributes (aka properties), and methods (aka behavior).
+Ruby is an object-oriented language. That means it's based on the idea that you'll build your application with objects in mind.
 
-Why do we need objects? Let's take a look at [amazon](http://www.amazon.com/).
+An object is a collection of related attributes (aka properties) and methods (aka behavior). You can think of an object as a little machine: it has displays you can read and buttons you can push.
 
-Let's search for speakers. When we hit enter we can see a whole bunch of different speakers. Did the people that coded amazon hard code all of these speakers? Think of each different speaker as an object. These objects have properties like a title, url, price, or rating. We need to be able to store and consolidate information into objects so that we can access/display them on a webpage.
+When you write an object-oriented application, the idea is that you write the blueprints for these machines, and then you write a sequence of events your users can initiate in which these machines interact with each other.
 
-We often think of these objects modeling things in the real world. Examples
-might include:
+## The OOP Process
 
-- Bank Account
-  - attributes: balance, transactions, owner
-  - methods: deposit, withdraw, close_account
-- Person
-  - attributes: first_name, last_name, hunger_level
-  - methods: speak, run, eat
-- Squad
-  - attributes: name, instructor, students, size
-  - methods: add_student, remove_student, meet, high_five, dance
+Putting your idea in a nutshell gives you a starting place for what those objects may be:
 
-Often in OOP, these objects interact with each other. For example, we might
-create a *person* object and then add them to a *squad* object. If we call a
-*dance* method on a squad, it might make all the people in the squad *dance* as well.
+> "Tic Tac Toe is a game where players try to get three squares in a row."
 
-### Exercise (10 mintues)
+- Game
+- Players
+- Squares
 
-Students should model a car, listing attributes and methods it may have.
+> "Garnet is a site where students can track their homework and attendance."
 
-Example Model: *(don't peek!)*
+- Students
+- Homework
+- Attendance
 
-- Car
-  - attributes: make, model, year, color, speed, milage, num_doors, driver
-  - methods: turn_on, turn_off, change_gear, accelerate, brake
+> "Amazon is a site where people can order products."
 
-## JS Objects vs Ruby Hashes vs Ruby Objects (5 minutes)
+- People
+- Orders
+- Products
 
-In JS, objects are somewhat like ruby hashes, in that they are key-value pairs,
-but JS objects are more powerful than a hash, in that JS objects can have
-methods, while ruby hashes can't.
+Note that each of these has a "human" object. To simplify things, I'm going to call these Users.
 
-Ruby objects are like JS Objects, only we can't access their properties/
-attributes directly (we have to call methods on the object instead.)
+## Amazon
 
-Ruby also has *Classes*, which help us build objects, while JS Objects have
-*constructor functions* (which we'll cover in unit 3).
+I'm going to start building a new Amazon.
 
-## Classes vs Objects (5 minutes)
+```rb
+class User
 
-It's very common (in the world and in our programs), that we have many objects
-that share the same list of properties, and the same methods. E.g. there are
-lots of *people* who each have all the attributes and methods of a *person*.
-
-*Classes* are like blueprints that define the generic list of of properties and
-methods, and can be used to build individual *objects* of that class. The
-objects each have their own unique values for properties. In Ruby, it might look
-something like this:
-
-```ruby
-# assuming we have a `Person` class
-class Person
-  # define properties and methods, more on this later
-end
-
-bob   = Person.new("Bob", "Ross", 5)
-kanye = Person.new("Kanye", "West",10)
-
-bob.first_name     # returns "Bob"
-bob.hunger_level   # returns 5
-bob.eat("Banana")  # hunger_level drops to 1
-bob.hunger_level   # returns 1
-
-kanye.first_name    # returns "Kanye"
-kanye.hunger_level  # returns 10
-kanye.eat("Chipotle Burrito")  # hunger_level drops to 0
-kanye.hunger_level  # returns 0
-```
-
-## An Aside: Playing / Debugging with `binding.pry`
-
-If we `require 'pry'` in our program, we can add `binding.pry` to any line to
-pause and get a pry REPL at that point in our code. We can then play with our
-code, see what the value of in-scope variables are, etc.
-
-Ex:
-`scratch.rb`:
-```ruby
-require 'pry'
-a = 5
-binding.pry
-b = 10
-```
-
-in the `terminal`:
-```bash
-$ ruby scratch.rb
-    1: require 'pry'
-    2: a = 5
-    3: binding.pry
- => 4: b = 10
-
-[1] pry(main)> a
-=> 5
-[2] pry(main)> b
-=> nil
-[3] pry(main)>
-```
-
-## Writing Classes (10 minutes)
-
-Classes are define with the `class` keyword:
-
-```ruby
-# person1.rb
-class Person
-end
-```
-
-Pure ruby classes often have an `initialize` method, which gets run when we
-create `new` instances of that class.
-
-```ruby
-# person2.rb
-class Person
-  def initialize()
-    puts("new person created")
-  end
-end
-
-bob = Person.new # "new person created"
-```
-
-### Instance Variables (10 minutes)
-
-Often, the initialize method is used to set some/all *instance variables* of an
-instance. Instance variables are somewhat different, each instance of a class
-can have unique values for that variable. Instance variables start with an
-at-sign, like so `@first_name`.
-
-```ruby
-# person3.rb
-class Person
-  def initialize(initial_name)
-    @name = initial_name
-  end
-
-  def introduce
-    puts "Hello, I'm #{@name}"
-  end
-end
-
-me     = Person.new("Adam Bray")
-jesse  = Person.new("Jesse")
-
-me.introduce # prints "Hello, I'm Adam Bray"
-jesse.introduce # prints "Hello, I'm Jesse Shawl"
-```
-
-### Getters and Setters (10 minutes)
-
-We can't *directly* access instance variables of an object. We can *only* call
-methods. If we want to access or modify (*get* or *set*) properties of an object,
-we need to create methods to do so, often called *getters* and *setters*.
-
-```ruby
-# person4.rb
-class Person
-  def initialize(initial_name, initial_hunger_level)
-    @name = initial_name
-    @hunger_level = initial_hunger_level
-  end
-
-  def introduce
-    puts "Hello, I'm #{@name}"
-  end
-
-  # GETTER
-  def first_name
-    return @first_name
-  end
-
-  def hunger_level
-    return @hunger_level
-  end
-
-  # SETTERS
-  def name=(new_name)
-    @name = new_name
-  end
-
-  def hunger_level=(new_hunger_level)
-    if new_hunger_level < 0
-      @hunger_level = 0
-    else
-      @hunger_level = new_hunger_level
-    end
+  def initialize
+    puts "I'm a new User"
   end
 
 end
 
-me = Person.new("Adam Bray", 10)
+class Product
 
-# Using Getters
-me.name           # returns "Adam Bray"
-me.hunger_level   # returns 10
+  def initialize
+    puts "I'm a new Product"
+  end
 
-# Using / Testing Setters
-me.name = "Adam Bray, Esq." # changes name
-me.name                     # returns "Adam Bray, Esq."
+end
 
-me.hunger_level = 5         # changes hunger level
-me.hunger_level             # returns 5
-me.hunger_level = -8        # changes hunger level, according to rules
-me.hunger_level             # returns 0
+class Order
+
+  def initialize
+    puts "I'm a new Order"
+  end
+
+end
+```
+
+A class name must begin with a capital letter.
+
+### `initialize` is a special method that runs whenever you type `.new`.
+
+This is automatic in all Ruby classes.
+
+```rb
+# pry
+User
+# ...nothing happens
+User.new
+# "I'm a new User"
+```
+
+Objects have attributes. This describes what an object "looks" like.
+
+- When you "look" at a User on Amazon, how would you describe it?
+  - It has a name
+  - It has an e-mail address
+  - It has a password
+
+### You can pass arguments to `initialize`
+
+`initialize` is a special method in that it's called by `.new`, but it behaves like any other method: you can pass arguments to it.
+
+```rb
+class User
+
+  def initialize(firstname, lastname)
+    puts "I'm a new User named #{firstname} #{lastname}"
+  end
+
+end
+```
+```rb
+# pry
+juan = User.new("Juan", "Juanson")
+# I'm a new User named Juan
+# => #<User:0x007f96f312b240>
+```
+
+### Instance variables
+
+I'd like to have a method that prints the full name of the user.
+
+In Ruby, normal variables are available only inside the method in which they were created.
+
+If you put an `@` before the variable's name, it's available inside the entire `instance` in which it was created.
+
+This is an instance variable.
+
+```rb
+class User
+
+  def initialize(firstname, lastname)
+    @firstname = firstname
+    @lastname = lastname
+  end
+
+  def full_name
+    fname = "#{@firstname.capitalize} #{@lastname.capitalize}"
+    return fname
+  end
+
+end
+```
+```rb
+# pry
+juan = User.new("Juan", "Juanson")
+# => #<User:0x007faf3903f670 @firstname="Juan", @lastname="Juanson">
+juan.full_name
+# => "Juan Juanson"
+```
+
+### Getting and setting
+
+To get Juan's first name, I can't simply type `juan.firstname`. To set Juan's first name, I can't simply type `juan.firstname = "Jorge"`
+
+The only things available **outside** an instance are its methods. `@firstname` is a property, not a method.
+
+To make it "gettable" and "settable", I'll need to create getter and setter methods for it.
+
+```rb
+class User
+
+  def initialize(firstname, lastname)
+    @firstname = firstname
+    @lastname = lastname
+  end
+
+  def full_name
+    fname = "#{@firstname.capitalize} #{@lastname.capitalize}"
+    return fname
+  end
+
+  def get_firstname
+    return @firstname
+  end
+
+  def set_firstname firstname
+    @firstname = firstname
+  end
+
+end
+```
+```rb
+# pry
+juan = User.new("Juan", "Juanson")
+# => #<User:0x007faf3903f670 @firstname="Juan", @lastname="Juanson">
+puts juan.get_firstname
+# "Juan"
+juan.set_firstname("Jorge")
+puts juan.get_firstname
+# "Jorge"
 ```
 
 ## Exercise (20 minutes)
@@ -235,44 +196,160 @@ Clone this exercise and follow the instructions in the readme.
 
 **[Monkies!!!](https://github.com/ga-dc/oop_monkey)**
 
+### attr_accessor
+Since getters and setters are so common, Ruby has a shortcut to create them:
 
-### attr_reader, attr_writer, attr_accessor (5 minutes)
-Since these getters and setters are so common, ruby gives us shortcuts to create
-them for us:
+- `attr_accessor :name`
 
-* `attr_reader :hunger_level` - creates a getter
-* `attr_writer :name` - creates a setter
-* `attr_accessor :name` - creates a getter & a setter
+```rb
+class User
+  attr_accessor :firstname, :lastname
 
-These are used inside of a class (customarily at the very top).
-
-```ruby
-# person5.rb
-# functionally identical to the previous example, much less code
-class Person
-  attr_accessor :name
-  attr_reader :hunger_level
-
-  def initialize(initial_name, initial_hunger_level)
-    @name = initial_name
-    @hunger_level = initial_hunger_
+  def initialize(firstname, lastname)
+    @firstname = firstname
+    @lastname = lastname
   end
 
-  def introduce
-    puts "Hello, I'm #{@name}"
-  end
-
-  # Custom setter for hunger_level
-  def hunger_level=(new_hunger_level)
-    if new_hunger_level < 0
-      @hunger_level = 0
-    else
-      @hunger_level = new_hunger_level
-    end
+  def full_name
+    fname = "#{@firstname.capitalize} #{@lastname.capitalize}"
+    return fname
   end
 
 end
 ```
+```rb
+# pry
+juan = User.new("Juan", "Juanson")
+# => #<User:0x007faf3903f670 @firstname="Juan", @lastname="Juanson">
+puts juan.firstname
+# "Juan"
+juan.firstname = "Jorge"
+puts juan.firstname
+# "Jorge"
+```
+
+## I Demo: Scrabbler
+
+https://github.com/ga-wdi-exercises/scrabbler
+
+## Other Objects
+
+What attributes might an Amazon Product and Order have?
+
+- Product
+  - Price
+- Order
+  - Product
+  - User
+
+### `attr_reader`
+
+```rb
+class User
+  attr_accessor :name
+
+  def initialize(name)
+    @name = name
+  end
+
+end
+
+class Product
+  attr_accessor :name, :price
+
+  def initialize(name, price)
+    @name = name
+    @price = price
+  end
+
+end
+
+class Order
+  attr_reader :user, :product
+
+  def initialize(user, product)
+    @user = user
+    @product = product
+  end
+
+end
+```
+```rb
+# pry
+juan = User.new("Juan")
+jordans = Product.new("Air Jordans", 99.00)
+juan_orders_shoes = Order.new(juan, jordans)
+```
+
+`attr_reader` creates a getter method only. Trying to do `neworder.user = "something"` will fail.
+
+I don't want anyone to change the user or product for an order after it's created, so I'm making it read-only.
+
+### You Do:
+
+- Create a method that returns the price of an order's product
+
+## Class variables, methods, and self
+
+I'd like to have an easy way of keeping track of all orders.
+
+```rb
+class Order
+  attr_reader :user, :product
+  @@all = []
+
+  def initialize(user, product)
+    @user = user
+    @product = product
+    @@all.push(self)
+  end
+
+  def Order.all
+    return @@all
+  end
+
+end
+```
+```rb
+juan = User.new("Juan")
+jordans = Product.new("Air Jordans", 99.00)
+order_a = Order.new(juan, jordans)
+order_b = Order.new(juan, jordans)
+puts Order.all
+# => [#<Order>, #<Order>]
+puts order_a.all
+# => Error!
+```
+
+A variable name beginning with `@@` is a **class variable**. Every instance of a class has the same value for this variable. It cannot be accessed with `attr_accessor`
+
+A method name beginning with the class name is a **class method**. It is attached to the class itself, rather than to instances.
+
+`self` is a special variable that contains the current instance of an object. It's how the object refers to it*self*.
+
+## Public and Private
+
+```rb
+class User
+  attr_accessor :name
+
+  def initialize(name, password)
+    @name = name
+    @password = encrypt(password)
+  end
+
+  private
+  def encrypt(value)
+    return value.reverse
+  end
+end
+```
+
+By default all instance and class methods are *public*. This means they're visible to other objects. An analogy: they're functions that have their own buttons on the outside of the machine, like a car's turn signal.
+
+There may be methods other objects don't need to know about. Putting `private` in front of them means they can be used inside the object, but are not available outside it. An analogy: they're functions that do not have their own buttons on the outside of the machine, like a car's air filter.
+
+`private` is useful mostly for keeping things organized. Consider jQuery: It's already cluttered enough, with all these methods like `.fadeOut` and `.css`. It has lots of other methods hidden inside it that we don't really need to know about.
 
 ## Why OOP? (10 mintues)
 
