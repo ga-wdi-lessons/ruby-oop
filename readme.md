@@ -44,31 +44,13 @@ Putting your idea in a nutshell gives you a starting place for what those object
 
 Note that each of these has a "human" object. To simplify things, I'm going to call these Users.
 
-## Amazon
-
-I'm going to start building a new Amazon.
+## Defining Users
 
 ```rb
 class User
 
   def initialize
     puts "I'm a new User"
-  end
-
-end
-
-class Product
-
-  def initialize
-    puts "I'm a new Product"
-  end
-
-end
-
-class Order
-
-  def initialize
-    puts "I'm a new Order"
   end
 
 end
@@ -87,13 +69,6 @@ User
 User.new
 # "I'm a new User"
 ```
-
-Objects have attributes. This describes what an object "looks" like.
-
-- When you "look" at a User on Amazon, how would you describe it?
-  - It has a name
-  - It has an e-mail address
-  - It has a password
 
 ### You can pass arguments to `initialize`
 
@@ -134,8 +109,7 @@ class User
   end
 
   def full_name
-    fname = "#{@firstname.capitalize} #{@lastname.capitalize}"
-    return fname
+    puts "#{@firstname.capitalize} #{@lastname.capitalize}"
   end
 
 end
@@ -150,7 +124,7 @@ juan.full_name
 
 ### Getting and setting
 
-To get Juan's first name, I can't simply type `juan.firstname`. To set Juan's first name, I can't simply type `juan.firstname = "Jorge"`
+To get Juan's first name, I can't simply type `juan.firstname`. To **set** Juan's first name, I can't simply type `juan.firstname = "Jorge"`
 
 The only things available **outside** an instance are its methods. `@firstname` is a property, not a method.
 
@@ -165,15 +139,14 @@ class User
   end
 
   def full_name
-    fname = "#{@firstname.capitalize} #{@lastname.capitalize}"
-    return fname
+    puts "#{@firstname.capitalize} #{@lastname.capitalize}"
   end
 
   def get_firstname
     return @firstname
   end
 
-  def set_firstname firstname
+  def set_firstname(firstname)
     @firstname = firstname
   end
 
@@ -199,8 +172,6 @@ Clone this exercise and follow the instructions in the readme.
 ### attr_accessor
 Since getters and setters are so common, Ruby has a shortcut to create them:
 
-- `attr_accessor :name`
-
 ```rb
 class User
   attr_accessor :firstname, :lastname
@@ -211,8 +182,7 @@ class User
   end
 
   def full_name
-    fname = "#{@firstname.capitalize} #{@lastname.capitalize}"
-    return fname
+    puts "#{@firstname.capitalize} #{@lastname.capitalize}"
   end
 
 end
@@ -220,134 +190,251 @@ end
 ```rb
 # pry
 juan = User.new("Juan", "Juanson")
-# => #<User:0x007faf3903f670 @firstname="Juan", @lastname="Juanson">
+# => #<User @firstname="Juan", @lastname="Juanson">
 puts juan.firstname
 # "Juan"
 juan.firstname = "Jorge"
-puts juan.firstname
-# "Jorge"
+puts juan.full_name
+# "Jorge Juanson"
 ```
 
-## I Demo: Scrabbler
-
-https://github.com/ga-wdi-exercises/scrabbler
-
-## Other Objects
-
-What attributes might an Amazon Product and Order have?
-
-- Product
-  - Price
-- Order
-  - Product
-  - User
-
-### `attr_reader`
+### `attr_accessor` is actually a shortcut for two other shortcuts.
 
 ```rb
 class User
-  attr_accessor :name
+  attr_reader :firstname
+  attr_writer :lastname
 
-  def initialize(name)
-    @name = name
+  def initialize(firstname, lastname)
+    @firstname = firstname
+    @lastname = lastname
   end
 
-end
-
-class Product
-  attr_accessor :name, :price
-
-  def initialize(name, price)
-    @name = name
-    @price = price
-  end
-
-end
-
-class Order
-  attr_reader :user, :product
-
-  def initialize(user, product)
-    @user = user
-    @product = product
+  def full_name
+    puts "#{@firstname.capitalize} #{@lastname.capitalize}"
   end
 
 end
 ```
 ```rb
-# pry
-juan = User.new("Juan")
-jordans = Product.new("Air Jordans", 99.00)
-juan_orders_shoes = Order.new(juan, jordans)
+juan = User.new("Juan", "Juanson")
+juan.firstname
+# => "Juan"
+juan.lastname
+# => Error!
+juan.firstname = "Jorge"
+# => Error!
+juan.lastname = "Anderson"
+juan.full_name
+# => "Juan Anderson"
 ```
 
-`attr_reader` creates a getter method only. Trying to do `neworder.user = "something"` will fail.
+`attr_reader` creates a *getter* method only. Trying to do `juan.firstname = "Jorge"` will fail.
 
-I don't want anyone to change the user or product for an order after it's created, so I'm making it read-only.
+`attr_writer` creates a *setter* method only. Trying to do `puts juan.lastname` will fail.
 
-### You Do:
+`attr_accessor` creates getters and setters.
 
-- Create a method that returns the price of an order's product
+## Class-level stuff
 
-## Class variables, methods, and self
+### Attributes
 
-I'd like to have an easy way of keeping track of all orders.
+I'd like to have a way of getting all users.
 
 ```rb
-class Order
-  attr_reader :user, :product
-  @@all = []
+class User
+  attr_accessor :firstname, :lastname
+  @@all = 0
 
-  def initialize(user, product)
-    @user = user
-    @product = product
-    @@all.push(self)
+  def initialize(firstname, lastname)
+    @firstname = firstname
+    @lastname = lastname
+    @@all += 1
   end
 
-  def Order.all
+  def full_name
+    puts "#{@firstname.capitalize} #{@lastname.capitalize}"
+  end
+
+  def count
     return @@all
   end
 
 end
 ```
 ```rb
-juan = User.new("Juan")
-jordans = Product.new("Air Jordans", 99.00)
-order_a = Order.new(juan, jordans)
-order_b = Order.new(juan, jordans)
-puts Order.all
-# => [#<Order>, #<Order>]
-puts order_a.all
-# => Error!
+juan = User.new("Juan", "Juanson")
+juan.count
+# => 1
+jorge = User.new("Jorge", "Jorgeson")
+juan.count
+# => 2
+jorge.count
+# => 2
+steve = User.new("Steve", "Steveson")
+juan.count
+# => 3
+jorge.count
+# => 3
+steve.count
+# => 3
 ```
 
 A variable name beginning with `@@` is a **class variable**. Every instance of a class has the same value for this variable. It cannot be accessed with `attr_accessor`
 
-A method name beginning with the class name is a **class method**. It is attached to the class itself, rather than to instances.
+### Methods
 
-`self` is a special variable that contains the current instance of an object. It's how the object refers to it*self*.
+`.full_name` is an *instance method*: it's called on an instance of User.
 
-## Public and Private
+There are also methods you call on `User` itself. So far we've only seen `.new`.
 
 ```rb
 class User
-  attr_accessor :name
+  attr_accessor :firstname, :lastname
+  @@all = 0
 
-  def initialize(name, password)
-    @name = name
-    @password = encrypt(password)
+  def initialize(firstname, lastname)
+    @firstname = firstname
+    @lastname = lastname
+    @@all += 0
   end
 
-  private
-  def encrypt(value)
-    return value.reverse
+  def full_name
+    puts "#{@firstname.capitalize} #{@lastname.capitalize}"
   end
+
+  def count
+    return @@all
+  end
+
+  def User.new
+    puts "I've hijacked a class method!"
+  end
+
 end
 ```
+```rb
+juan = User.new("Juan", "Juanson")
+# "I've hijacked a class method!"
+juan.firstname
+# => Error!
+```
+
+A method name beginning with the class name is a **class method**. It is attached to the class itself, rather than to instances.
+
+### Class attributes and methods together
+
+`User.count` would make much more sense than `steve.count`.
+
+
+```rb
+class User
+  attr_accessor :firstname, :lastname
+  @@all = 0
+
+  def initialize(firstname, lastname)
+    @firstname = firstname
+    @lastname = lastname
+    @@all += 0
+  end
+
+  def full_name
+    puts "#{@firstname.capitalize} #{@lastname.capitalize}"
+  end
+
+  def User.count
+    return @@all
+  end
+
+end
+```
+```rb
+juan = User.new("Juan", "Juanson")
+# "I've hijacked a class method!"
+juan.count
+# => Error!
+User.count
+# => 1
+```
+
+## Self
+
+`self` is a special variable that contains the current instance of an object (like `this` in Javascript). It's how the object refers to it*self*.
+
+```rb
+class User
+  attr_accessor :firstname, :lastname
+  @@all = []
+
+  def initialize(firstname, lastname)
+    @firstname = firstname
+    @lastname = lastname
+    puts "Creating #{self.firstname}"
+    @@all.push(self)
+  end
+
+  def full_name
+    puts "#{@firstname.capitalize} #{@lastname.capitalize}"
+  end
+
+  def User.all
+    return @@all
+  end
+
+end
+```
+```rb
+juan = User.new("Juan", "Juanson")
+# "Creating Juan"
+jorge = User.new("Jorge", "Jorgeson")
+# "Creating Jorge"
+steve = User.new("Steve", "Steveson")
+# "Creating Steve"
+User.all
+# => [#<User @firstname="Juan">, #<User @firstname="Jorge">, #<User @firstname="Steve">]
+```
+
+## Public and Private
 
 By default all instance and class methods are *public*. This means they're visible to other objects. An analogy: they're functions that have their own buttons on the outside of the machine, like a car's turn signal.
 
-There may be methods other objects don't need to know about. Putting `private` in front of them means they can be used inside the object, but are not available outside it. An analogy: they're functions that do not have their own buttons on the outside of the machine, like a car's air filter.
+There may be methods other objects don't need to know about.
+
+```rb
+class User
+  attr_accessor :firstname, :lastname
+  @@all = []
+
+  def initialize(firstname, lastname, password)
+    @firstname = firstname
+    @lastname = lastname
+    @password = encrypt(password)
+    @@all.push(self)
+  end
+
+  def full_name
+    puts "#{@firstname.capitalize} #{@lastname.capitalize}"
+  end
+
+  def User.all
+    return @@all
+  end
+
+  private
+  def encrypt(input)
+    return input.reverse
+  end
+
+end
+```
+```rb
+juan = User.new("Juan", "Juanson", "wombat")
+# #<User @firstname="Juan" @password="tabmow">
+juan.encrypt("wombat")
+# Error! Private method `encrypt`
+```
+
+Putting `private` in front of methods means they can be used inside the object, but are not available outside it. An analogy: they're functions that do not have their own buttons on the outside of the machine, like a car's air filter.
 
 `private` is useful mostly for keeping things organized. Consider jQuery: It's already cluttered enough, with all these methods like `.fadeOut` and `.css`. It has lots of other methods hidden inside it that we don't really need to know about.
 
