@@ -492,6 +492,12 @@ Clone this exercise and follow the instructions in the readme.
   - [Monkeys](https://github.com/ga-wdi-exercises/oop_monkey)
   - [Application Config](https://github.com/ga-wdi-exercises/ruby_application_configuration)
   - [Superheroes](https://github.com/ga-wdi-exercises/superheros)
+- Screencasts
+  - WDI8, Robin
+    - [Part 1](https://www.youtube.com/watch?v=-pAFSheGDr0)
+    - [Part 2](https://www.youtube.com/watch?v=ZgZCtns27pE)
+    - [Part 3](https://youtu.be/npM249VzB0I)
+    - [Part 4](https://youtu.be/su_XYcj_Cpk)
 
 ## Sample Questions
 
