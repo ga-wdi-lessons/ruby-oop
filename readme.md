@@ -4,18 +4,15 @@ See also: https://github.com/ga-wdi-lessons/ruby-oop-inheritance
 
 ## Learning Objectives
 
-- Define Object-Oriented Programming, and its benefits
-- Define and differentiate between classes and objects
-- Create a Ruby class with an initialize method
-- Instantiate an object from a class and interact with it
-- Use `binding.pry` to play with code live
-- Explain the difference between local and instance variables
-- Write setter and getter methods
-- Describe the use of `attr_reader` / `attr_writer` / `attr_accessor`
-- Write methods to define an interface to the class' behaviors
-- Describe how OOP supports encapsulation and abstraction
+- Explain how `.new()` and `def initialize()` are related
+- Explain whether a piece of data is best-suited to being stored in a local, instance, or class variable
+- Explain whether given data and methods are best-suited to being "public" or "private"
+- Explain whether given data is best-suited to having its accessibility defined by `attr_accessor`, `attr_reader`, `attr_writer`, or none of the above
+- Describe the relationship of `attr_` and "getter" and "setter" methods
+- Properly define instance and class variables
+- List two ways of defining class methods
 
-## What is OOP? (5 minutes)
+## Framing: What is OOP? (5 minutes)
 
 Object-oriented programming is the idea that our programs consist mainly of
 objects, which have attributes (aka properties), and methods (aka behavior).
@@ -318,11 +315,19 @@ If our objects are well-designed, then they interact with each other in
 well-defined ways. This allows us to refactor (rewrite) any object, and it
 should not impact (cause bugs) in other areas of our programs.
 
-## Lab
+## Homework: Scrabble
 
 Clone this exercise and follow the instructions in the readme.
 
 **[Scrabble Word Scorer](https://github.com/ga-dc/scrabbler)**
+
+## Resources
+
+- [Variables cheat sheet](variables.md)
+- Other exercises
+  - [Monkeys](https://github.com/ga-wdi-exercises/oop_monkey)
+  - [Application Config](https://github.com/ga-wdi-exercises/ruby_application_configuration)
+  - [Superheroes](https://github.com/ga-wdi-exercises/superheros)
 
 ## Sample Questions
 
