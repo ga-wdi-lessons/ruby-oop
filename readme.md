@@ -109,7 +109,7 @@ class User
   end
 
   def full_name
-    puts "#{@firstname.capitalize} #{@lastname.capitalize}"
+    return "#{@firstname.capitalize} #{@lastname.capitalize}"
   end
 
 end
@@ -139,7 +139,7 @@ class User
   end
 
   def full_name
-    puts "#{@firstname.capitalize} #{@lastname.capitalize}"
+    return "#{@firstname.capitalize} #{@lastname.capitalize}"
   end
 
   def get_firstname
@@ -182,7 +182,7 @@ class User
   end
 
   def full_name
-    puts "#{@firstname.capitalize} #{@lastname.capitalize}"
+    return "#{@firstname.capitalize} #{@lastname.capitalize}"
   end
 
 end
@@ -211,7 +211,7 @@ class User
   end
 
   def full_name
-    puts "#{@firstname.capitalize} #{@lastname.capitalize}"
+    return "#{@firstname.capitalize} #{@lastname.capitalize}"
   end
 
 end
@@ -253,7 +253,7 @@ class User
   end
 
   def full_name
-    puts "#{@firstname.capitalize} #{@lastname.capitalize}"
+    return "#{@firstname.capitalize} #{@lastname.capitalize}"
   end
 
   def count
@@ -300,7 +300,7 @@ class User
   end
 
   def full_name
-    puts "#{@firstname.capitalize} #{@lastname.capitalize}"
+    return "#{@firstname.capitalize} #{@lastname.capitalize}"
   end
 
   def count
@@ -339,7 +339,7 @@ class User
   end
 
   def full_name
-    puts "#{@firstname.capitalize} #{@lastname.capitalize}"
+    return "#{@firstname.capitalize} #{@lastname.capitalize}"
   end
 
   def User.count
@@ -374,7 +374,7 @@ class User
   end
 
   def full_name
-    puts "#{@firstname.capitalize} #{@lastname.capitalize}"
+    return "#{@firstname.capitalize} #{@lastname.capitalize}"
   end
 
   def User.all
@@ -413,7 +413,7 @@ class User
   end
 
   def full_name
-    puts "#{@firstname.capitalize} #{@lastname.capitalize}"
+    return "#{@firstname.capitalize} #{@lastname.capitalize}"
   end
 
   def User.all
