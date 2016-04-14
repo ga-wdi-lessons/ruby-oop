@@ -86,7 +86,7 @@ end
 ```rb
 # pry
 juan = User.new("Juan", "Juanson")
-# I'm a new User named Juan
+# I'm a new User named Juan Juanson
 # => #<User:0x007f96f312b240>
 ```
 
