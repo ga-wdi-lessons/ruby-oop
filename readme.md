@@ -1,7 +1,5 @@
 # Intro to Object-Oriented Programming in Ruby
 
-See also: https://github.com/ga-wdi-lessons/ruby-oop-inheritance
-
 ## Learning Objectives
 
 - Explain how `.new()` and `def initialize()` are related
@@ -163,11 +161,33 @@ puts juan.get_firstname
 # "Jorge"
 ```
 
-## Exercise (20 minutes)
+## You do: Orange Tree
+
+From Chris Pine's "Learn to Program"
+
+http://locker.wdidc.org/Ruby/Learn%20to%20Program.pdf
+
+
+Make an OrangeTree class that has a height method
+that returns its height and a one_year_passes method that, when
+called, ages the tree one year. 
+
+Each year the tree grows taller (however
+much you think an orange tree should grow in a year), and
+after some number of years (again, your call) the tree should die.
+
+For the first few years, it should not produce fruit, but after a while
+it should, and I guess that older trees produce more each year
+than younger trees...whatever you think makes the most sense.
+
+And, of course, you should be able to count_the_oranges (which
+returns the number of oranges on the tree) and pick_an_orange
+(which reduces the @orange_count by 1 and returns a string telling
+you how delicious the orange was, or else it just tells you that there
+are no more oranges to pick this year). Make sure any oranges you
+don’t pick one year fall off before the next year
 
 Clone this exercise and follow the instructions in the readme.
-
-**[Monkies!!!](https://github.com/ga-dc/oop_monkey)**
 
 ### attr_accessor
 Since getters and setters are so common, Ruby has a shortcut to create them:
@@ -234,6 +254,10 @@ juan.full_name
 `attr_writer` creates a *setter* method only. Trying to do `puts juan.lastname` will fail.
 
 `attr_accessor` creates getters and setters.
+
+## You do: Monkies!
+
+https://github.com/ga-wdi-exercises/oop_monkey
 
 ## Class-level stuff
 
