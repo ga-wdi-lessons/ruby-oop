@@ -28,11 +28,11 @@ Putting your idea in a nutshell gives you a starting place for what those object
 - Players
 - Squares
 
-> "Garnet is a site where students can track their homework and attendance."
+> "Facebook is a site where users can post statuses and add friends."
 
-- Students
-- Homework
-- Attendance
+- Users
+- Statuses
+- Friends
 
 > "Amazon is a site where people can order products."
 
@@ -40,9 +40,102 @@ Putting your idea in a nutshell gives you a starting place for what those object
 - Orders
 - Products
 
-Note that each of these has a "human" object. To simplify things, I'm going to call these Users.
+*Players*, *Users*, and *People* are all "human" words. To keep things simple, I'll almost always use **"Users"** to refer to human objects that interact with my app.
 
-## Defining Users
+## Our first object
+
+An **object** is an **instance** of a **class**.
+
+A class is a blueprint from which objects are made. Each object made from a class is an instance of that class. Each instance of a class is an object.
+
+Copy and paste this code into your REPL:
+
+```rb
+class User
+
+  def set_name_to(some_string)
+    @name = some_string
+  end
+
+  def get_name
+    return @name
+  end
+
+  def greet
+    puts "Hi! My name is #{@name}!"
+  end
+
+end
+```
+
+Then, copy and paste these lines **one at a time**:
+
+```rb
+alice = User.new
+alice.set_name_to("Alice")
+puts alice.get_name
+
+bob = User.new
+bob.set_name_to("Bob")
+puts bob.get_name
+
+puts alice.greet
+puts bob.greet
+```
+
+<details>
+<summary>If we change `def set_name_to(some_string)` to `def christen(name)`, what else will need to change?</summary>
+`@name = some_string` must become `@name = name`, and `alice.set_name_to("Alice")` must become `alice.christen("Alice")`.
+</details>
+
+<details>
+<summary>If we change `@name = some_string` to `@username = some_string`, what else will need to change?</summary>
+Every `@name` must become `@username`.
+</details>
+
+- `User` is a(n)...
+  - class
+  - instance
+  - object
+
+- `alice` is a(n)...
+  - class
+  - instance
+  - object
+
+- `User.greet` throws an error. `alice.greet` works fine. So we can deduce that the `greet` method can only be called on...
+  - instances of the `User` class
+  - the `User` class itself
+  - objects
+
+- Thus, it would be make sense to call `greet` a(n)...
+  - "instance method"
+  - "class method"
+  - "object method"
+
+- `User.new` works fine. `alice.new` throws an error. So we can deduce that the `new` method can only be called on...
+  - instances of the `User` class
+  - the `User` class itself
+  - objects
+
+- Thus, it would be make sense to call `new` a(n)...
+  - "instance method"
+  - "class method"
+  - "object method"
+
+<details>
+<summary>`class User` works fine. `class user` throws an error. What's a rule we can deduce about classes from this?</summary>
+Class names must begin with a capital letter.
+</details>
+
+<details>
+<summary>`class UserName` works fine. `class User Name` throws an error. What's a rule we can deduce about classes from this?</summary>
+Class names must not contain spaces.
+</details>
+
+## Initializing Users
+
+Copy and paste this code into your REPL:
 
 ```rb
 class User
@@ -51,26 +144,40 @@ class User
     puts "I'm a new User"
   end
 
+  def greet
+    puts "Nice to meet you!"
+  end
+
 end
 ```
 
-A class name must begin with a capital letter.
-
-### `initialize` is a special method that runs whenever you type `.new`.
-
-This is automatic in all Ruby classes.
+Then, copy and paste these lines **one at a time**:
 
 ```rb
-# pry
+alice = User.new
+alice.greet
+
+bob = User.new
+bob.greet
+
 User
-# ...nothing happens
 User.new
-# "I'm a new User"
+User.new
 ```
+
+<details>
+<summary>What can we conclude about the relationship of `def initialize` and `.new`?</summary>
+The `initialize` method is run every time `.new` is called.
+</details>
+
+<details>
+<summary>How is this different from other User methods we've seen?</summary>
+`initialize` and `new` aren't the same word. Going by what else we've seen, we'd expect to see `User.initialize` correspond to `def initialize`. (Under the hood, `.new` is a separate class method that calls the `initialize` instance method.)
+</details>
 
 ### You can pass arguments to `initialize`
 
-`initialize` is a special method in that it's called by `.new`, but it behaves like any other method: you can pass arguments to it.
+`initialize` is a special method in its relationship to `.new`, but otherwise it behaves like any other method. This means you can pass arguments to it:
 
 ```rb
 class User
@@ -81,6 +188,7 @@ class User
 
 end
 ```
+
 ```rb
 # pry
 juan = User.new("Juan", "Juanson")
@@ -112,6 +220,7 @@ class User
 
 end
 ```
+
 ```rb
 # pry
 juan = User.new("Juan", "Juanson")
@@ -150,6 +259,7 @@ class User
 
 end
 ```
+
 ```rb
 # pry
 juan = User.new("Juan", "Juanson")
@@ -167,65 +277,87 @@ From Chris Pine's "Learn to Program"
 
 http://locker.wdidc.org/Ruby/Learn%20to%20Program.pdf
 
-Make an OrangeTree class that has a height method
-that returns its height and a one_year_passes method that, when
-called, ages the tree one year. 
+Make an OrangeTree class that has:
+
+- a `height` method that returns its height in feet
+- a `one_year_passes` method that, when called, ages the tree one year
 
 ### Check In
 
-Each year the tree grows taller (however
-much you think an orange tree should grow in a year), and
-after some number of years (again, your call) the tree should die.
+- Each year the tree grows taller by one foot
+- After 50 years the tree should "die" (its height goes to 0)
 
 ### Check In
 
-For the first few years, it should not produce fruit, but after a while
-it should, and I guess that older trees produce more each year
-than younger trees...whatever you think makes the most sense.
+- After the first 5 years, the tree bears 20 oranges
+- You should be able to `count_the_oranges`, which returns the number of oranges on the tree
 
-And, of course, you should be able to count_the_oranges (which
-returns the number of oranges on the tree) and pick_an_orange
-(which reduces the @orange_count by 1 and returns a string telling
-you how delicious the orange was, or else it just tells you that there
-are no more oranges to pick this year). Make sure any oranges you
-don’t pick one year fall off before the next year
+### Check In
+
+- You should be able to `pick_an_orange`, which reduces the number of oranges by 1
+- Ensure that your tree cannot have negative oranges
+- Ensure that after each year your tree has 20 total oranges again
+
+### Check In
+
+- The number of oranges the tree bears each year is equal to 20 plus the age of the tree
 
 #### Bonus!
 
-Create an Orange Grove class that manages mutiple OrangeTrees. It can
+Create an Orange Grove class that manages multiple OrangeTrees. It can:
 
 - Age all the trees by one year
 - pick and count all the fruit
 - calculate average height and fruit of all orange trees.
 
-### attr_accessor
-Since getters and setters are so common, Ruby has a shortcut to create them:
+## attr_accessor
+
+Copy and paste this snippet into your REPL:
 
 ```rb
 class User
-  attr_accessor :firstname, :lastname
 
-  def initialize(firstname, lastname)
-    @firstname = firstname
-    @lastname = lastname
+  def get_name
+    return @name
   end
 
-  def full_name
-    return "#{@firstname.capitalize} #{@lastname.capitalize}"
+  def set_name(some_string)
+    @name = some_string
   end
 
 end
 ```
+
+Run these lines one at a time:
+
 ```rb
-# pry
-juan = User.new("Juan", "Juanson")
-# => #<User @firstname="Juan", @lastname="Juanson">
-puts juan.firstname
-# "Juan"
-juan.firstname = "Jorge"
-puts juan.full_name
-# "Jorge Juanson"
+alice = User.new
+alice.name = "Alice"
+# This throws an error
+alice.set_name("Alice")
+puts alice.get_name
 ```
+
+Now, copy and paste this snippet into your REPL:
+
+```rb
+class User
+  attr_accessor :name
+end
+```
+
+Now, run these lines one at a time:
+
+```rb
+alice = User.new
+alice.name = "Alice"
+puts alice.name
+```
+
+<details>
+<summary>These have the same result, so we can deduce that `attr_accessor` is a shortcut that does what?</summary>
+It creates getter and setter methods for the `name` instance variable.
+</details>
 
 ### `attr_accessor` is actually a shortcut for two other shortcuts.
 
@@ -428,6 +560,11 @@ User.all
 ```
 
 ## Public and Private
+
+### You Do
+
+- Draw a picture of a machine, real or imaginary, that has inputs (buttons, switches, keypads...) and displays (dials, lights, screens...). Label what they do.
+- Most machines have internal gauges or memories that help it make decisions: temperature monitors, voltage monitors, hard disks, and so on. These are visible only inside the machine: whoever's using the machine can't see them. Draw two of these on your machine and label them.
 
 By default all instance and class methods are *public*. This means they're visible to other objects. An analogy: they're functions that have their own buttons on the outside of the machine, like a car's turn signal.
 
