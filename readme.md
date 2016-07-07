@@ -9,6 +9,7 @@
 - Describe the relationship of `attr_` and "getter" and "setter" methods
 - Properly define instance and class variables
 - List two ways of defining class methods
+- Explain the different use-cases for classes and modules
 
 ## Framing: What is OOP? (5 minutes)
 
@@ -28,7 +29,7 @@ Putting your idea in a nutshell gives you a starting place for what those object
 - Players
 - Squares
 
-> "Facebook is a site where users can post statuses and add friends."
+> "Facebook is an app where users can post statuses and add friends."
 
 - Users
 - Statuses
@@ -40,7 +41,15 @@ Putting your idea in a nutshell gives you a starting place for what those object
 - Orders
 - Products
 
+I'm basically taking the nouns and saying they're objects.
+
 *Players*, *Users*, and *People* are all "human" words. To keep things simple, I'll almost always use **"Users"** to refer to human objects that interact with my app.
+
+#### What might the objects be in...
+
+- A GA homework-grading app?
+- A GA attendance-taking app?
+- Uber or Lyft?
 
 ## Our first object
 
@@ -607,6 +616,84 @@ juan.encrypt("wombat")
 Putting `private` in front of methods means they can be used inside the object, but are not available outside it. An analogy: they're functions that do not have their own buttons on the outside of the machine, like a car's air filter.
 
 `private` is useful mostly for keeping things organized. Consider jQuery: It's already cluttered enough, with all these methods like `.fadeOut` and `.css`. It has lots of other methods hidden inside it that we don't really need to know about.
+
+## Modules
+
+Classes are great for packaging up related methods: all my User-related methods are in one place.
+
+But let's say my app involves translating English into other languages: I want a "translate-to-French" method, and one for Spanish, German, and so on.
+
+Putting those into a class doesn't really make semantic sense. A class should be a blueprint for an object. Translator methods don't really "belong" to a specific object: I may want to use them with my Users, or with blog posts, or with product descriptions.
+
+A **module** is a lot like a class. The biggest difference is semantic: **Modules are just bundles of related methods. They're not a blueprint for an object.**
+
+> The module we've explored most recently is **enumerables**. Out-of-the-box, Ruby comes with a big old `Enumerable` module that has lots of handy methods inside it, like `each`.
+
+### Try out modules
+
+Copy and paste this snippet into your REPL:
+
+```rb
+module TranslatorMethods
+  def frenchify(input)
+    return input + " omelette du fromage"
+  end
+
+  def spanishify(input)
+    return input + " donde esta la biblioteca"
+  end
+
+  def germanify(input)
+    return input + " schadenfreude kindergarten"
+  end
+end
+
+class User
+
+  include TranslatorMethods
+  attr_accessor :nationality
+
+  def initialize(nationality)
+    @nationality = nationality.downcase
+  end
+
+  def greet
+    standard = "Hello"
+    case @nationality
+    when "french"
+      puts frenchify(standard)
+    when "spanish"
+      puts spanishify(standard)
+    when "german"
+      puts germanify(standard)
+    else
+      puts standard
+    end
+  end
+
+end
+```
+
+Now, copy and paste these lines one at a time:
+
+```rb
+user = User.new("French")
+user.greet
+user.nationality = "German"
+user.greet
+```
+
+It's just as if we had copy-and-pasted all those "translator" methods right into the `User` class.
+
+<details>
+<summary>What Javascript things have we seen that would make a good Ruby module? (That is: where have we seen big bundles of methods in Javascript?)</summary>
+jQuery
+</details>
+
+<details>
+<summary>Unrelated: Why does it say `@nationality = nationality.downcase`? What's the utility of the `downcase`?</summary>
+Ruby is case-sensitive. Without this, if a user entered "FRENCH" or "French", it wouldn't register it as being the same as "french".
+</details>
 
 ## Why OOP? (10 mintues)
 
