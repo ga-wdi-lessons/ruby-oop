@@ -47,7 +47,7 @@ Q&A -->
 - List two ways of defining class methods
 - Explain the different use-cases for classes and modules
 
-## Framing: What is OOP? (9:00 - 9:10)
+## Framing: What is OOP? (10:00 - 10:10)
 
 Ruby is an object-oriented language. That means it's based on the idea that you'll build your application with objects in mind.
 
