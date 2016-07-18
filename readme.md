@@ -1,17 +1,53 @@
+<!-- During the first check for understanding (5 min) (new vs initialize)
+
+White-tabling: give markers out before hand and not midway through a lesson; give cleaning rag halfway through
+
+If it becomes apparent during the CFU that  less than 2/3rds of the class gets the material, go back and review/reframe
+
+Rephrase student answers so that everyone can hear, clarify any fuzziness in answer
+
+Then go back check of Learning Objective!
+
+2nd Check for Understanding (Local, instance or class variables)
+
+Gestures: framing is very important; give clear directions
+Call on a quieter student with a correct answer
+
+3rd LO - Determine whether given data and methods are best-suited to being "public" or “private”
+
+ask for students to think of 3 examples of public methods for 1 min, and then to give 1
+
+sample students
+if you find yourself running behind you can always CFU during independent practice
+
+Think Pair Share with the last few objectives
+For the last 4 learnings objectives
+If you were teaching this material, how would you teach this to someone?
+Groups of 4 and then present
+Hook
+Topic Introduction
+Example
+Demo
+Q&A -->
+
+
+
 # Intro to Object-Oriented Programming in Ruby
 
 ## Learning Objectives
 
-- Explain how `.new()` and `def initialize()` are related
-- Explain whether a piece of data is best-suited to being stored in a local, instance, or class variable
-- Explain whether given data and methods are best-suited to being "public" or "private"
+#### By the end of the lesson, students will be able to:
+
+- Explain the relationship between `.new()` and `def initialize()`
+- Distinguish whether a piece of data is best-suited to being stored in a local, instance, or class variable
+- Determine whether given data and methods are best-suited to being "public" or "private"
 - Explain whether given data is best-suited to having its accessibility defined by `attr_accessor`, `attr_reader`, `attr_writer`, or none of the above
 - Describe the relationship of `attr_` and "getter" and "setter" methods
 - Properly define instance and class variables
 - List two ways of defining class methods
 - Explain the different use-cases for classes and modules
 
-## Framing: What is OOP? (5 minutes)
+## Framing: What is OOP? (9:00 - 9:10)
 
 Ruby is an object-oriented language. That means it's based on the idea that you'll build your application with objects in mind.
 
@@ -51,11 +87,11 @@ I'm basically taking the nouns and saying they're objects.
 - A GA attendance-taking app?
 - Uber or Lyft?
 
-## Our first object
+## Our first object (10:10 - 10:20)
 
 An **object** is an **instance** of a **class**.
 
-A class is a blueprint from which objects are made. Each object made from a class is an instance of that class. Each instance of a class is an object.
+A **class** is a blueprint from which objects are made. In javascript we used prototypes and constructor functions, which operate somewhat similarly to **classes** in Ruby. Each object made from a class is an instance of that class. Each instance of a class is an object.
 
 Copy and paste this code into your REPL:
 
@@ -102,25 +138,25 @@ puts bob.greet
 Every `@name` must become `@username`.
 </details>
 
-- `User` is a(n)...
-  - class
-  - instance
-  - object
+- is `User` a(n)...
+  - class?
+  - instance?
+  - object?
 
-- `alice` is a(n)...
-  - class
-  - instance
-  - object
+- is `alice` a(n)...
+  - class?
+  - instance?
+  - object?
 
 - `User.greet` throws an error. `alice.greet` works fine. So we can deduce that the `greet` method can only be called on...
   - instances of the `User` class
   - the `User` class itself
   - objects
 
-- Thus, it would be make sense to call `greet` a(n)...
-  - "instance method"
-  - "class method"
-  - "object method"
+- Thus, would it make sense to call `greet` a(n)...
+  - "instance method"?
+  - "class method"?
+  - "object method"?
 
 - `User.new` works fine. `alice.new` throws an error. So we can deduce that the `new` method can only be called on...
   - instances of the `User` class
@@ -142,7 +178,7 @@ Class names must begin with a capital letter.
 Class names must not contain spaces.
 </details>
 
-## Initializing Users
+## Initializing Users (10:20 - 10:30)
 
 Copy and paste this code into your REPL:
 
@@ -174,6 +210,12 @@ User.new
 User.new
 ```
 
+
+#### Hypothesis Building (2 min)
+
+In the next 2 minutes, write down 3 sentences venturing an educated guess when we might use each of these two methods, `def initialize` and `new`, describing where each would be written.
+
+
 <details>
 <summary>What can we conclude about the relationship of `def initialize` and `.new`?</summary>
 The `initialize` method is run every time `.new` is called.
@@ -183,6 +225,7 @@ The `initialize` method is run every time `.new` is called.
 <summary>How is this different from other User methods we've seen?</summary>
 `initialize` and `new` aren't the same word. Going by what else we've seen, we'd expect to see `User.initialize` correspond to `def initialize`. (Under the hood, `.new` is a separate class method that calls the `initialize` instance method.)
 </details>
+
 
 ### You can pass arguments to `initialize`
 
@@ -205,7 +248,7 @@ juan = User.new("Juan", "Juanson")
 # => #<User:0x007f96f312b240>
 ```
 
-### Instance variables
+### Instance variables (10:30 - 10:40)
 
 I'd like to have a method that prints the full name of the user.
 
@@ -240,9 +283,9 @@ juan.full_name
 
 ### Getting and setting
 
-To get Juan's first name, I can't simply type `juan.firstname`. To **set** Juan's first name, I can't simply type `juan.firstname = "Jorge"`
+To **get** Juan's first name, I can't simply type `juan.firstname`. To **set** Juan's first name, I can't simply type `juan.firstname = "Jorge"`
 
-The only things available **outside** an instance are its methods. `@firstname` is a property, not a method.
+The only things available **outside** an instance are its methods. `@firstname` is a property, not a method. We can't access 'data' inside of an instance unless it contains methods that let us do so.
 
 To make it "gettable" and "settable", I'll need to create getter and setter methods for it.
 
@@ -280,46 +323,9 @@ puts juan.get_firstname
 # "Jorge"
 ```
 
-## You do: Orange Tree
-
-From Chris Pine's "Learn to Program"
-
-http://locker.wdidc.org/Ruby/Learn%20to%20Program.pdf
-
-Make an OrangeTree class that has:
-
-- a `height` method that returns its height in feet
-- a `one_year_passes` method that, when called, ages the tree one year
-
-### Check In
-
-- Each year the tree grows taller by one foot
-- After 50 years the tree should "die" (its height goes to 0)
-
-### Check In
-
-- After the first 5 years, the tree bears 20 oranges
-- You should be able to `count_the_oranges`, which returns the number of oranges on the tree
-
-### Check In
-
-- You should be able to `pick_an_orange`, which reduces the number of oranges by 1
-- Ensure that your tree cannot have negative oranges
-- Ensure that after each year your tree has 20 total oranges again
-
-### Check In
-
-- The number of oranges the tree bears each year is equal to 20 plus the age of the tree
-
-#### Bonus!
-
-Create an Orange Grove class that manages multiple OrangeTrees. It can:
-
-- Age all the trees by one year
-- pick and count all the fruit
-- calculate average height and fruit of all orange trees.
-
 ## attr_accessor
+
+Recall how we couldn't simply type `juan.firstname="some other name"` in a prior example.
 
 Copy and paste this snippet into your REPL:
 
@@ -372,17 +378,17 @@ It creates getter and setter methods for the `name` instance variable.
 
 ```rb
 class User
-  attr_reader :firstname
-  attr_writer :lastname
+attr_reader :firstname
+attr_writer :lastname
 
-  def initialize(firstname, lastname)
-    @firstname = firstname
-    @lastname = lastname
-  end
+def initialize(firstname, lastname)
+@firstname = firstname
+@lastname = lastname
+end
 
-  def full_name
-    return "#{@firstname.capitalize} #{@lastname.capitalize}"
-  end
+def full_name
+return "#{@firstname.capitalize} #{@lastname.capitalize}"
+end
 
 end
 ```
@@ -405,15 +411,73 @@ juan.full_name
 
 `attr_accessor` creates getters and setters.
 
-## You do: Monkies!
+## Break  (10:50 - 11:00, 10 min)
 
+___
+
+## You do: Monkies! (11:00 - 11:20, 20 min)
+
+For the next exercise, clone down the repo linked below:
 https://github.com/ga-wdi-exercises/oop_monkey
+
 
 ## Class-level stuff
 
-### Attributes
+### Class Attributes a.k.a. Class Variables (11:20 - 11:25, 5 min)
 
 I'd like to have a way of getting all users.
+
+```rb
+class User
+  attr_accessor :firstname, :lastname
+  @@all = 0
+
+  def count
+    return @@all
+  end
+
+  def initialize(firstname, lastname)
+    @firstname = firstname
+    @lastname = lastname
+    @@all += 1
+  end
+
+  def full_name
+    return "#{@firstname.capitalize} #{@lastname.capitalize}"
+  end
+
+
+end
+```
+
+
+```rb
+juan = User.new("Juan", "Juanson")
+juan.count
+# => 1
+jorge = User.new("Jorge", "Jorgeson")
+juan.count
+# => 2
+jorge.count
+# => 2
+steve = User.new("Steve", "Steveson")
+juan.count
+# => 3
+jorge.count
+# => 3
+steve.count
+# => 3
+```
+
+But there's somehting weird going on here: note that we aren't counting the number of Steves, Jorges, or Juans. Think about what `.count` might be returning; more on this in a moment!
+
+A variable name beginning with `@@` is a **class variable**. Every instance of a class has the same value for this variable. It cannot be accessed with `attr_accessor`
+
+### Methods (11:25 - 11:30, 5 min)
+
+`.full_name` is an *instance method*: it's called on an instance of User.
+
+There are also methods you call on `User` itself. So far we've only seen `.new`.
 
 ```rb
 class User
@@ -434,69 +498,26 @@ class User
     return @@all
   end
 
-end
-```
-```rb
-juan = User.new("Juan", "Juanson")
-juan.count
-# => 1
-jorge = User.new("Jorge", "Jorgeson")
-juan.count
-# => 2
-jorge.count
-# => 2
-steve = User.new("Steve", "Steveson")
-juan.count
-# => 3
-jorge.count
-# => 3
-steve.count
-# => 3
-```
-
-A variable name beginning with `@@` is a **class variable**. Every instance of a class has the same value for this variable. It cannot be accessed with `attr_accessor`
-
-### Methods
-
-`.full_name` is an *instance method*: it's called on an instance of User.
-
-There are also methods you call on `User` itself. So far we've only seen `.new`.
-
-```rb
-class User
-  attr_accessor :firstname, :lastname
-  @@all = 0
-
-  def initialize(firstname, lastname)
-    @firstname = firstname
-    @lastname = lastname
-    @@all += 0
-  end
-
-  def full_name
-    return "#{@firstname.capitalize} #{@lastname.capitalize}"
-  end
-
-  def count
-    return @@all
-  end
-
   def User.new
-    puts "I've hijacked a class method!"
+    puts "I've hijacked a class method and broken core functionality!"
   end
 
 end
 ```
+
+
 ```rb
 juan = User.new("Juan", "Juanson")
-# "I've hijacked a class method!"
-juan.firstname
+# ArgumentError: wrong number of arguments (given 2, expected 0)
+juan = User.new
+# "I've hijacked a class method and broken core functionality!"
+juan.firstname = "Juan"
 # => Error!
 ```
 
 A method name beginning with the class name is a **class method**. It is attached to the class itself, rather than to instances.
 
-### Class attributes and methods together
+### Class attributes/variables and Class methods together (11:30 - 11:40)
 
 `User.count` would make much more sense than `steve.count`.
 
@@ -509,29 +530,33 @@ class User
   def initialize(firstname, lastname)
     @firstname = firstname
     @lastname = lastname
-    @@all += 0
+    @@all += 1
   end
 
   def full_name
     return "#{@firstname.capitalize} #{@lastname.capitalize}"
   end
 
+  # Below is one way to define a Class Method!!! You can also use self.count
   def User.count
     return @@all
   end
 
 end
 ```
+
+
 ```rb
 juan = User.new("Juan", "Juanson")
-# "I've hijacked a class method!"
 juan.count
 # => Error!
 User.count
 # => 1
 ```
 
-## Self
+
+
+## Self (11:40 - 11:45, 5 min)
 
 `self` is a special variable that contains the current instance of an object (like `this` in Javascript). It's how the object refers to it*self*.
 
@@ -551,12 +576,14 @@ class User
     return "#{@firstname.capitalize} #{@lastname.capitalize}"
   end
 
-  def User.all
+  #can also be written as: def User.all
+  def self.all
     return @@all
   end
 
 end
 ```
+
 ```rb
 juan = User.new("Juan", "Juanson")
 # "Creating Juan"
@@ -568,16 +595,16 @@ User.all
 # => [#<User @firstname="Juan">, #<User @firstname="Jorge">, #<User @firstname="Steve">]
 ```
 
-## Public and Private
+## Public and Private (11:45 - 11:50, 5 min)
 
 ### You Do
 
 - Draw a picture of a machine, real or imaginary, that has inputs (buttons, switches, keypads...) and displays (dials, lights, screens...). Label what they do.
 - Most machines have internal gauges or memories that help it make decisions: temperature monitors, voltage monitors, hard disks, and so on. These are visible only inside the machine: whoever's using the machine can't see them. Draw two of these on your machine and label them.
 
-By default all instance and class methods are *public*. This means they're visible to other objects. An analogy: they're functions that have their own buttons on the outside of the machine, like a car's turn signal.
+By default all instance and class methods are *public*, except for `def initialize` which is *private*. This means they're visible to other objects. An analogy: they're functions that have their own buttons on the outside of the machine, like a car's turn signal.
 
-There may be methods other objects don't need to know about.
+There may be methods that all other objects don't need to know about.
 
 ```rb
 class User
@@ -606,6 +633,8 @@ class User
 
 end
 ```
+
+
 ```rb
 juan = User.new("Juan", "Juanson", "wombat")
 # #<User @firstname="Juan" @password="tabmow">
@@ -617,83 +646,46 @@ Putting `private` in front of methods means they can be used inside the object, 
 
 `private` is useful mostly for keeping things organized. Consider jQuery: It's already cluttered enough, with all these methods like `.fadeOut` and `.css`. It has lots of other methods hidden inside it that we don't really need to know about.
 
-## Modules
+## Break (11:50 - 12:00, 10 min)
 
-Classes are great for packaging up related methods: all my User-related methods are in one place.
+## You do: Orange Tree (12:00 - 12:20, 20 min)
 
-But let's say my app involves translating English into other languages: I want a "translate-to-French" method, and one for Spanish, German, and so on.
+From Chris Pine's "Learn to Program": p 133, section 13.6
 
-Putting those into a class doesn't really make semantic sense. A class should be a blueprint for an object. Translator methods don't really "belong" to a specific object: I may want to use them with my Users, or with blog posts, or with product descriptions.
+http://locker.wdidc.org/Ruby/Learn%20to%20Program.pdf
 
-A **module** is a lot like a class. The biggest difference is semantic: **Modules are just bundles of related methods. They're not a blueprint for an object.**
+Make an OrangeTree class that has:
 
-> The module we've explored most recently is **enumerables**. Out-of-the-box, Ruby comes with a big old `Enumerable` module that has lots of handy methods inside it, like `each`.
+- a `height` method that returns its height in feet
+- a `one_year_passes` method that, when called, ages the tree one year
 
-### Try out modules
+### Check In
 
-Copy and paste this snippet into your REPL:
+- Each year the tree grows taller by one foot
+- After 50 years the tree should "die" (its height goes to 0)
 
-```rb
-module TranslatorMethods
-  def frenchify(input)
-    return input + " omelette du fromage"
-  end
+### Check In
 
-  def spanishify(input)
-    return input + " donde esta la biblioteca"
-  end
+- After the first 5 years, the tree bears 20 oranges
+- You should be able to `count_the_oranges`, which returns the number of oranges on the tree
 
-  def germanify(input)
-    return input + " schadenfreude kindergarten"
-  end
-end
+### Check In
 
-class User
+- You should be able to `pick_an_orange`, which reduces the number of oranges by 1
+- Ensure that your tree cannot have negative oranges
+- Ensure that after each year your tree has 20 total oranges again
 
-  include TranslatorMethods
-  attr_accessor :nationality
+### Check In
 
-  def initialize(nationality)
-    @nationality = nationality.downcase
-  end
+- The number of oranges the tree bears each year is equal to 20 plus the age of the tree
 
-  def greet
-    standard = "Hello"
-    case @nationality
-    when "french"
-      puts frenchify(standard)
-    when "spanish"
-      puts spanishify(standard)
-    when "german"
-      puts germanify(standard)
-    else
-      puts standard
-    end
-  end
+#### Bonus!
 
-end
-```
+Create an OrangeTreeOrchard class that manages multiple OrangeTrees. It can:
 
-Now, copy and paste these lines one at a time:
-
-```rb
-user = User.new("French")
-user.greet
-user.nationality = "German"
-user.greet
-```
-
-It's just as if we had copy-and-pasted all those "translator" methods right into the `User` class.
-
-<details>
-<summary>What Javascript things have we seen that would make a good Ruby module? (That is: where have we seen big bundles of methods in Javascript?)</summary>
-jQuery
-</details>
-
-<details>
-<summary>Unrelated: Why does it say `@nationality = nationality.downcase`? What's the utility of the `downcase`?</summary>
-Ruby is case-sensitive. Without this, if a user entered "FRENCH" or "French", it wouldn't register it as being the same as "french".
-</details>
+- Age all the trees by one year
+- pick and count all the fruit
+- calculate average height and fruit of all orange trees.
 
 ## Why OOP? (10 mintues)
 
@@ -736,7 +728,7 @@ If our objects are well-designed, then they interact with each other in
 well-defined ways. This allows us to refactor (rewrite) any object, and it
 should not impact (cause bugs) in other areas of our programs.
 
-## Homework: Scrabble
+## Extra Practice: Scrabble
 
 Clone this exercise and follow the instructions in the readme.
 
