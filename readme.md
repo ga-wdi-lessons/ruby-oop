@@ -340,21 +340,27 @@ puts alice.name
 It creates getter and setter methods for the `name` instance variable.
 </details>
 
-### `attr_accessor` is actually a shortcut for two other shortcuts.
+### `attr_accessor` is actually a shortcut that combines two other shortcuts
+
+#### `attr_accessor` is `attr_reader` combined with `attr_writer`.
+
+`attr_reader` makes an attribute readable, `attr_writer` makes an attribute writeable. 
+
+To illustrate the difference between `attr_reader` and `attr_writer`, let's have a look at the code below.
 
 ```rb
 class User
-attr_reader :firstname
-attr_writer :lastname
+  attr_reader :firstname
+  attr_writer :lastname
 
-def initialize(firstname, lastname)
-@firstname = firstname
-@lastname = lastname
-end
+  def initialize(firstname, lastname)
+    @firstname = firstname
+    @lastname = lastname
+  end
 
-def full_name
-return "#{@firstname.capitalize} #{@lastname.capitalize}"
-end
+  def full_name
+    return "#{@firstname.capitalize} #{@lastname.capitalize}"
+  end
 
 end
 ```
