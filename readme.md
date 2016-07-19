@@ -344,7 +344,7 @@ It creates getter and setter methods for the `name` instance variable.
 
 #### `attr_accessor` is `attr_reader` combined with `attr_writer`.
 
-`attr_reader` makes an attribute readable, `attr_writer` makes an attribute writeable. 
+`attr_reader` makes an attribute readable, `attr_writer` makes an attribute writeable. `attr_accessor` makes an attribute both readable AND writeable. 
 
 To illustrate the difference between `attr_reader` and `attr_writer`, let's have a look at the code below.
 
