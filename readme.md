@@ -1,37 +1,3 @@
-<!-- During the first check for understanding (5 min) (new vs initialize)
-
-White-tabling: give markers out before hand and not midway through a lesson; give cleaning rag halfway through
-
-If it becomes apparent during the CFU that  less than 2/3rds of the class gets the material, go back and review/reframe
-
-Rephrase student answers so that everyone can hear, clarify any fuzziness in answer
-
-Then go back check of Learning Objective!
-
-2nd Check for Understanding (Local, instance or class variables)
-
-Gestures: framing is very important; give clear directions
-Call on a quieter student with a correct answer
-
-3rd LO - Determine whether given data and methods are best-suited to being "public" or “private”
-
-ask for students to think of 3 examples of public methods for 1 min, and then to give 1
-
-sample students
-if you find yourself running behind you can always CFU during independent practice
-
-Think Pair Share with the last few objectives
-For the last 4 learnings objectives
-If you were teaching this material, how would you teach this to someone?
-Groups of 4 and then present
-Hook
-Topic Introduction
-Example
-Demo
-Q&A -->
-
-
-
 # Intro to Object-Oriented Programming in Ruby
 
 ## Learning Objectives
@@ -89,7 +55,7 @@ I'm basically taking the nouns and saying they're objects.
 
 ## Our first object (10:10 - 10:20)
 
-An **object** is an **instance** of a **class**.
+An **object** is an **instance** of a **class**. What does this mean? Say that we have a car. Each of us has a mental model of what a car is: it has four wheels, runs on gas, has a steering wheel that allows us to drive it, etc. This is like a **class**. Now, when we see a car in front of us, this is like an **instance**, it's an actual **object** in front of us. Each **object** has its blueprint, and is an **instance** of that blueprint or **class**.
 
 A **class** is a blueprint from which objects are made. In javascript we used prototypes and constructor functions, which operate somewhat similarly to **classes** in Ruby. Each object made from a class is an instance of that class. Each instance of a class is an object.
 
@@ -564,7 +530,7 @@ User.count
 
 `self` is a special variable that contains the current instance of an object (like `this` in Javascript). It's how the object refers to it*self*.
 
-`self` has another context as well: `def self.all` refers to `class User`. What does this mean? It means that the method `.all` can only be called on the class `User`, much like `.new`, and is therefore a class method. 
+`self` has another context as well: `def self.all` refers to `class User`. What does this mean? It means that the method `.all` can only be called on the class `User`, much like `.new`, and is therefore a class method.
 
 ```rb
 class User
