@@ -513,7 +513,11 @@ juan = User.new
 # "I've hijacked a class method and broken core functionality!"
 juan.firstname = "Juan"
 # => Error!
+juan.count
+#
 ```
+
+#### Take a few seconds to think about why we don't get a
 
 A method name beginning with the class name is a **class method**. It is attached to the class itself, rather than to instances.
 
@@ -559,6 +563,8 @@ User.count
 ## Self (11:40 - 11:45, 5 min)
 
 `self` is a special variable that contains the current instance of an object (like `this` in Javascript). It's how the object refers to it*self*.
+
+`self` has another context as well: `def self.all` refers to `class User`. What does this mean? It means that the method `.all` can only be called on the class `User`, much like `.new`, and is therefore a class method. 
 
 ```rb
 class User
