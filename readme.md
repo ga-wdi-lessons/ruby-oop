@@ -245,7 +245,7 @@ User.new
 
 ### You Can Pass Arguments to `initialize`
 
-`initialize` is a special method in its relationship to `.new`, but otherwise it behaves like any other method. This means you can pass arguments to it...
+`initialize` is a special method in its relationship to `.new`, but otherwise it behaves like any other method. This means you can pass arguments to it (again, just like Javascript's `constructor`)...
 
 ```rb
 class User
@@ -671,6 +671,17 @@ Create an `OrangeTreeOrchard` class that manages multiple `OrangeTrees`. It can.
   - Write a getter for name and age, and a setter for name only
   - Create a new student and demonstrate using all the methods
 - Explain the difference between local and instance variables
+
+## Glossary
+
+* **Class**: a blueprint for objects
+* **Instance**: an object that is created using a class
+* **Instance Variable**: a property that is particular to an instance
+* **Class Variable:** a property that is accessible by all instances of a class
+* **Instance Method**: a method that can be called by an instance of a class (e.g., `sample_user.reset_password`)
+* **Class Method**: a method that can be called by a class (e.g., `User.list_user`)
+* **`initialize`**: a class method that, when triggered, creates an instance and assigns initial properties
+* **`.new`**: a class method that, when called, triggers its `initialize` method
 
 ------
 
