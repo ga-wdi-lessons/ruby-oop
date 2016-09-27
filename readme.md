@@ -1,12 +1,6 @@
-# TO DO
-
-* Make sure each code snippet flows into the next one.
-
 # Intro to Object-Oriented Programming in Ruby
 
 ## Learning Objectives
-
-#### By the end of the lesson, students will be able to:
 
 - Explain the relationship between `.new()` and `def initialize()`
 - Distinguish whether a piece of data is best-suited to being stored in a local, instance, or class variable
@@ -98,13 +92,16 @@ An **object** is an **instance** of a **class**. What does this mean? Say that w
 
 A **class** is a blueprint from which objects are made. In javascript we used classes, which operate very similarly to **classes** -- yes, the same name -- in Ruby. Each object made from a class is an instance of that class. Each instance of a class is an object.
 
-Copy and paste this code into Pry...
+Let's define a `User` class. We'll be using `binding.pry` to test our code.
 
 ```bash
-$ pry
+$ touch.app.rb
+$ gem install pry # run this is you haven't installed pry yet
 ```
 
 ```rb
+require "pry"
+
 class User
 
   def set_name_to(some_string)
@@ -120,9 +117,21 @@ class User
   end
 
 end
+
+binding.pry
+
+puts "end of file"
 ```
 
-Then, run each of these lines in Pry one at a time, paying attention to the output...
+<details>
+  <summary><strong>What about this Ruby class looks similar to a Javascript class?</strong></summary>
+
+  > * The `class` keyword
+  > * The class contains methods
+
+</details>
+
+Now let's generate some instances of this class...
 
 ```rb
 alice = User.new
@@ -137,26 +146,12 @@ puts alice.greet
 puts bob.greet
 ```
 
-<details>
-  <summary>If we change `def set_name_to(some_string)` to `def christen(name)`, what else will need to change?</summary>
-
-  `@name = some_string` must become `@name = name`, and `alice.set_name_to("Alice")` must become `alice.christen("Alice")`.
-
-</details>
-
-<details>
-  <summary>If we change `@name = some_string` to `@username = some_string`, what else will need to change?</summary>
-
-  Every `@name` must become `@username`.
-
-</details>
-
-- is `User` a(n)...
+- Is `User` a(n)...
   - class?
   - instance?
   - object?
 
-- is `alice` a(n)...
+- Is `alice` a(n)...
   - class?
   - instance?
   - object?
@@ -185,20 +180,27 @@ puts bob.greet
 
   <summary>`class User` works fine. `class user` throws an error. What's a rule we can deduce about classes from this?</summary>
 
-  Class names must begin with a capital letter. This is not optional.
+  > Class names must begin with a capital letter. This is not optional.
 
 </details>
 
 <details>
   <summary>`class UserName` works fine. `class User Name` throws an error. What's a rule we can deduce about classes from this?</summary>
 
-  Class names must not contain spaces.
+  > Class names must not contain spaces.
 
 </details>
 
 ## Initializing Users (10 minutes / 0:30)
 
-Copy and paste this code into Pry...
+<details>
+  <summary><strong>What was the purpose of a constructor function in Javascript classes?</strong></summary>
+
+  > To initialize any properties we want a class instance to have when it is created.
+
+</details>
+
+Ruby classes have an equivalent to Javascript constructors: the `initialize` method!
 
 ```rb
 class User
@@ -214,8 +216,6 @@ class User
 end
 ```
 
-Then, run each of these lines in Pry one at a time, paying attention to the output...
-
 ```rb
 alice = User.new
 alice.greet
@@ -228,22 +228,17 @@ User.new
 User.new
 ```
 
-#### Hypothesis Building (2 min)
-
-In the next 2 minutes, write down 3 sentences venturing an educated guess when we might use each of these two methods, `def initialize` and `new`, describing where each would be written.
-
-
 <details>
-  <summary>What can we conclude about the relationship of `def initialize` and `.new`?</summary>
+  <summary>What can we conclude about the relationship of `def initialize` and `.new`? (Hint: it serves the same purpose as Javascript's constructor function)</summary>
 
-  The `initialize` method is run every time `.new` is called.
+  > The `initialize` method is run every time `.new` is called.
 
 </details>
 
 <details>
   <summary>How is this different from other User methods we've seen?</summary>
 
-  `initialize` and `new` aren't the same word. Going by what else we've seen, we'd expect to see `User.initialize` correspond to `def initialize`. (Under the hood, `.new` is a separate class method that calls the `initialize` instance method.)
+  > `initialize` and `new` aren't the same word. Going by what else we've seen, we'd expect to see `User.initialize` correspond to `def initialize`. (Under the hood, `.new` is a separate class method that calls the `initialize` instance method.)
 
 </details>
 
@@ -311,11 +306,11 @@ juan.full_name
 
 ### Getting and Setting Properties
 
-To **get** Juan's first name, I can't simply type `juan.firstname`. To **set** Juan's first name, I can't simply type `juan.firstname = "Jorge"`
+To **get** Juan's first name, we can't simply type `juan.firstname`. To **set** Juan's first name, we can't simply type `juan.firstname = "Jorge"`
 
-The only things available **outside** an instance are its methods. `@firstname` is a property, not a method. We can't access 'data' inside of an instance unless it contains methods that let us do so.
+The only things available **outside** an instance are its methods. `@firstname` is a property, not a method. We can't access data inside of an instance unless it contains methods that let us do so.
 
-To make a property "gettable" and "settable", we need to create "getter" and setter methods for it.
+To make a property "gettable" and "settable", we need to create "getter" and "setter" methods for it.
 
 ```rb
 class User
@@ -355,8 +350,6 @@ puts juan.get_firstname
 
 Recall how we couldn't simply type `juan.firstname="some other name"` in a prior example.
 
-Copy and paste this snippet into Pry...
-
 ```rb
 class User
 
@@ -371,8 +364,6 @@ class User
 end
 ```
 
-Then, run each of these lines in Pry one at a time, paying attention to the output...
-
 ```rb
 alice = User.new
 alice.name = "Alice"
@@ -381,15 +372,13 @@ alice.set_name("Alice")
 puts alice.get_name
 ```
 
-Now, copy and paste this snippet into Pry...
+If only there were a way to define a class so that we don't have to define a getter and setter method for every single property...
 
 ```rb
 class User
   attr_accessor :name
 end
 ```
-
-Then, run each of these lines in Pry one at a time, paying attention to the output...
 
 ```rb
 alice = User.new
@@ -447,6 +436,8 @@ juan.full_name
 
 `attr_accessor` creates getters and setters.
 
+-------
+
 ## Break (10 minutes / 1:00)
 
 -------
@@ -458,11 +449,9 @@ https://github.com/ga-wdi-exercises/oop_monkey
 
 -------
 
-## Class-level Stuff
+## Class Attributes / Variables (5 minutes / 1:25)
 
-### Class Attributes / Variables (5 minutes / 1:25)
-
-I'd like to have a way of getting all users.
+Let's come up with a way of keeping track of how many users have been created total...
 
 ```rb
 class User
@@ -503,13 +492,13 @@ steve.count
 # => 3
 ```
 
-But there's something weird going on here: note that we aren't counting the number of Steves, Jorges or Juans. Think about what `.count` might be returning; more on this in a moment!
+But there's something weird going on here: note that we aren't counting the number of Steves, Jorges or Juans. Think about what `.count` might be returning. More on this in a moment!
 
 A variable name beginning with `@@` is a **class variable**. Every instance of a class has the same value for this variable. It cannot be accessed with `attr_accessor`.
 
 ### Methods (5 minutes / 1:30)
 
-`.full_name` is an *instance method*: it's called on an instance of User.
+`.full_name` is an *instance method*. It's called on an instance of User.
 
 There are also methods you call on `User` itself. So far we've only seen `.new`.
 
@@ -559,7 +548,7 @@ juan.count
 
 ### Class Attributes and Methods Together (10 minutes / 1:40)
 
-`User.count` would make much more sense than `steve.count`.
+It would make more sense if, in order to retrieve the total number of users, we ran `User.count` instead of `steve.count`...
 
 ```rb
 class User
@@ -576,7 +565,7 @@ class User
     return "#{@firstname.capitalize} #{@lastname.capitalize}"
   end
 
-  # Below is one way to define a Class Method!!! You can also use self.count
+  # You could also define this as `def self.count`, where self represents the class
   def User.count
     return @@all
   end
@@ -633,61 +622,9 @@ User.all
 # => [#<User @firstname="Juan">, #<User @firstname="Jorge">, #<User @firstname="Steve">]
 ```
 
-## Public and Private (5 minutes / 1:50)
+## Break (10 minutes / 1:55)
 
-<!-- AM: This exercise is kinda weird. -->
-
-### You Do
-
-- Draw a picture of a machine, real or imaginary, that has inputs (buttons, switches, keypads...) and displays (dials, lights, screens...). Label what they do.
-- Most machines have internal gauges or memories that help it make decisions: temperature monitors, voltage monitors, hard disks, and so on. These are visible only inside the machine: whoever's using the machine can't see them. Draw two of these on your machine and label them.
-
-By default all instance and class methods are *public*, except for `def initialize` which is *private*. This means they're visible to other objects. An analogy: they're functions that have their own buttons on the outside of the machine, like a car's turn signal.
-
-There may be methods that all other objects don't need to know about.
-
-```rb
-class User
-  attr_accessor :firstname, :lastname
-  @@all = []
-
-  def initialize(firstname, lastname, password)
-    @firstname = firstname
-    @lastname = lastname
-    @password = encrypt(password)
-    @@all.push(self)
-  end
-
-  def full_name
-    return "#{@firstname.capitalize} #{@lastname.capitalize}"
-  end
-
-  def User.all
-    return @@all
-  end
-
-  private
-  def encrypt(input)
-    return input.reverse
-  end
-
-end
-```
-
-```rb
-juan = User.new("Juan", "Juanson", "wombat")
-# #<User @firstname="Juan" @password="tabmow">
-juan.encrypt("wombat")
-# Error! Private method `encrypt`
-```
-
-Putting `private` in front of methods means they can be used inside the object, but are not available outside it. An analogy: they're functions that do not have their own buttons on the outside of the machine, like a car's air filter.
-
-`private` is useful mostly for keeping things organized. Consider jQuery: It's already cluttered enough, with all these methods like `.fadeOut` and `.css`. It has lots of other methods hidden inside it that we don't really need to know about.
-
-## Break (10 minutes / 2:00)
-
-## You Do: Orange Tree (20 minutes / 2:20)
+## You Do: Orange Tree (25 minutes / 2:20)
 
 > From Chris Pine's "Learn to Program": p 133, section 13.6
 
@@ -737,7 +674,57 @@ Create an `OrangeTreeOrchard` class that manages multiple `OrangeTrees`. It can.
 
 ------
 
-## Why OOP?
+## Bonus: Public and Private (5 minutes / 1:50)
+
+### You Do
+
+- Draw a picture of a machine, real or imaginary, that has inputs (buttons, switches, keypads...) and displays (dials, lights, screens...). Label what they do.
+- Most machines have internal gauges or memories that help it make decisions: temperature monitors, voltage monitors, hard disks, and so on. These are visible only inside the machine: whoever's using the machine can't see them. Draw two of these on your machine and label them.
+
+By default all instance and class methods are *public*, except for `def initialize` which is *private*. This means they're visible to other objects. An analogy: they're functions that have their own buttons on the outside of the machine, like a car's turn signal.
+
+There may be methods that all other objects don't need to know about.
+
+```rb
+class User
+  attr_accessor :firstname, :lastname
+  @@all = []
+
+  def initialize(firstname, lastname, password)
+    @firstname = firstname
+    @lastname = lastname
+    @password = encrypt(password)
+    @@all.push(self)
+  end
+
+  def full_name
+    return "#{@firstname.capitalize} #{@lastname.capitalize}"
+  end
+
+  def User.all
+    return @@all
+  end
+
+  private
+  def encrypt(input)
+    return input.reverse
+  end
+
+end
+```
+
+```rb
+juan = User.new("Juan", "Juanson", "wombat")
+# #<User @firstname="Juan" @password="tabmow">
+juan.encrypt("wombat")
+# Error! Private method `encrypt`
+```
+
+Putting `private` in front of methods means they can be used inside the object, but are not available outside it. An analogy: they're functions that do not have their own buttons on the outside of the machine, like a car's air filter.
+
+`private` is useful mostly for keeping things organized. Consider jQuery: It's already cluttered enough, with all these methods like `.fadeOut` and `.css`. It has lots of other methods hidden inside it that we don't really need to know about.
+
+## Review: Why OOP?
 
 #### Easy to Understand
 
