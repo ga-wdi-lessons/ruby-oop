@@ -33,43 +33,24 @@ We've talked quite a bit about object oriented programming as a paradigm, but we
 - Players
 - Squares
 
+#### Example: Facebook
+
+> "Facebook is an app where users can post statuses and add friends."
+
+- Users
+- Statuses
+- Friends
+
 Putting your idea in a nutshell gives you a starting place for what those objects may be.
 
 Spend three minutes working with a partner to come up with at least three types of objects that you might define when creating the following examples.
 
+  1. Amazon
+  2. A Homework Grading App
+  3. An Attendance Taking App
+  4. Uber
+
 > A helpful approach might be to take the "nouns" involved in the application and say they are objects.
-
-#### 1. Facebook
-
-> "Facebook is an app where users can post statuses and add friends."
-
-<details>
-  <summary>Some ideas...</summary>
-
-  - Users
-  - Statuses
-  - Friends
-
-</details>
-
-#### 2. Amazon
-
-> "Amazon is a site where people can order products."
-
-<details>
-  <summary>Some ideas...</summary>
-
-  - People
-  - Orders
-  - Products
-
-</details>
-
-#### 3. A Homework Grading App
-
-#### 4. An Attendance Taking App
-
-#### 5. Uber
 
 ## Our First Object (10 minutes / 0:20)
 
