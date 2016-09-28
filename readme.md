@@ -2,8 +2,6 @@
 
 ## Learning Objectives
 
-#### By the end of the lesson, students will be able to:
-
 - Explain the relationship between `.new()` and `def initialize()`
 - Distinguish whether a piece of data is best-suited to being stored in a local, instance, or class variable
 - Determine whether given data and methods are best-suited to being "public" or "private"
@@ -13,17 +11,21 @@
 - List two ways of defining class methods
 - Explain the different use-cases for classes and modules
 
-## Framing: What is OOP? (10:00 - 10:10)
+## Framing: What is OOP?
 
 Ruby is an object-oriented language. That means it's based on the idea that you'll build your application with objects in mind.
 
-An object is a collection of related attributes (aka properties) and methods (aka behavior). You can think of an object as a little machine: it has displays you can read and buttons you can push.
+As you learned with OOJS, an object is a collection of related attributes (aka properties) and methods (aka behavior). You can think of an object as a little machine: it has displays you can read and buttons you can push.
 
 When you write an object-oriented application, the idea is that you write the blueprints for these machines, and then you write a sequence of events your users can initiate in which these machines interact with each other.
 
-## The OOP Process
+Much of the code you see today will be very similar to what you encountered in last week's OOJS class. That's because classes are a concept that have been around for quite some time but only just introduced in Javascript. Use this pre-existing knowledge to your advantage in today's class!
 
-Putting your idea in a nutshell gives you a starting place for what those objects may be:
+## You Do: The OOP Process (10 minutes / 0:10)
+
+We've talked quite a bit about object oriented programming as a paradigm, but we haven't talked much about how to break a problem down into object components. Let's try one together...
+
+#### Example: Tic Tac Toe
 
 > "Tic Tac Toe is a game where players try to get three squares in a row."
 
@@ -31,37 +33,41 @@ Putting your idea in a nutshell gives you a starting place for what those object
 - Players
 - Squares
 
+#### Example: Facebook
+
 > "Facebook is an app where users can post statuses and add friends."
 
 - Users
 - Statuses
 - Friends
 
-> "Amazon is a site where people can order products."
+Putting your idea in a nutshell gives you a starting place for what those objects may be.
 
-- People
-- Orders
-- Products
+Spend three minutes working with a partner to come up with at least three types of objects that you might define when creating the following examples.
 
-I'm basically taking the nouns and saying they're objects.
+  1. Amazon
+  2. A Homework Grading App
+  3. An Attendance Taking App
+  4. Uber
 
-*Players*, *Users*, and *People* are all "human" words. To keep things simple, I'll almost always use **"Users"** to refer to human objects that interact with my app.
+> A helpful approach might be to take the "nouns" involved in the application and say they are objects.
 
-#### What might the objects be in...
-
-- A GA homework-grading app?
-- A GA attendance-taking app?
-- Uber or Lyft?
-
-## Our first object (10:10 - 10:20)
+## Our First Object (10 minutes / 0:20)
 
 An **object** is an **instance** of a **class**. What does this mean? Say that we have a car. Each of us has a mental model of what a car is: it has four wheels, runs on gas, has a steering wheel that allows us to drive it, etc. This is like a **class**. Now, when we see a car in front of us, this is like an **instance**, it's an actual **object** in front of us. Each **object** has its blueprint, and is an **instance** of that blueprint or **class**.
 
-A **class** is a blueprint from which objects are made. In javascript we used prototypes and constructor functions, which operate somewhat similarly to **classes** in Ruby. Each object made from a class is an instance of that class. Each instance of a class is an object.
+A **class** is a blueprint from which objects are made. In javascript we used classes, which operate very similarly to **classes** -- yes, the same name -- in Ruby. Each object made from a class is an instance of that class. Each instance of a class is an object.
 
-Copy and paste this code into your REPL:
+Let's define a `User` class. We'll be using `binding.pry` to test our code.
+
+```bash
+$ touch app.rb
+$ gem install pry # run this is you haven't installed pry yet
+```
 
 ```rb
+require "pry"
+
 class User
 
   def set_name_to(some_string)
@@ -77,9 +83,21 @@ class User
   end
 
 end
+
+binding.pry
+
+puts "end of file"
 ```
 
-Then, copy and paste these lines **one at a time**:
+<details>
+  <summary><strong>What about this Ruby class looks similar to a Javascript class?</strong></summary>
+
+  > * The `class` keyword
+  > * The class contains methods
+
+</details>
+
+Now let's generate some instances of this class...
 
 ```rb
 alice = User.new
@@ -94,59 +112,63 @@ puts alice.greet
 puts bob.greet
 ```
 
+#### Some Questions
+
+Is `User` a(n)...
+- class?
+- instance?
+- object?
+
+Is `alice` a(n)...
+- class?
+- instance?
+- object?
+
+`User.greet` throws an error. `alice.greet` works fine. So we can deduce that the `greet` method can only be called on...
+- instances of the `User` class
+- the `User` class itself
+- objects
+
+Thus, would it make sense to call `greet` a(n)...
+- "instance method"?
+- "class method"?
+- "object method"?
+
+`User.new` works fine. `alice.new` throws an error. So we can deduce that the `new` method can only be called on...
+- instances of the `User` class
+- the `User` class itself
+- objects
+
+Thus, it would be make sense to call `new` a(n)...
+- "instance method"
+- "class method"
+- "object method"
+
 <details>
-<summary>If we change `def set_name_to(some_string)` to `def christen(name)`, what else will need to change?</summary>
-`@name = some_string` must become `@name = name`, and `alice.set_name_to("Alice")` must become `alice.christen("Alice")`.
+
+  <summary>`class User` works fine. `class user` throws an error. What's a rule we can deduce about classes from this?</summary>
+
+  > Class names must begin with a capital letter. This is not optional.
+
 </details>
 
 <details>
-<summary>If we change `@name = some_string` to `@username = some_string`, what else will need to change?</summary>
-Every `@name` must become `@username`.
+  <summary>`class UserName` works fine. `class User Name` throws an error. What's a rule we can deduce about classes from this?</summary>
+
+  > Class names must not contain spaces.
+
 </details>
 
-- is `User` a(n)...
-  - class?
-  - instance?
-  - object?
-
-- is `alice` a(n)...
-  - class?
-  - instance?
-  - object?
-
-- `User.greet` throws an error. `alice.greet` works fine. So we can deduce that the `greet` method can only be called on...
-  - instances of the `User` class
-  - the `User` class itself
-  - objects
-
-- Thus, would it make sense to call `greet` a(n)...
-  - "instance method"?
-  - "class method"?
-  - "object method"?
-
-- `User.new` works fine. `alice.new` throws an error. So we can deduce that the `new` method can only be called on...
-  - instances of the `User` class
-  - the `User` class itself
-  - objects
-
-- Thus, it would be make sense to call `new` a(n)...
-  - "instance method"
-  - "class method"
-  - "object method"
+## Initializing Users (10 minutes / 0:30)
 
 <details>
-<summary>`class User` works fine. `class user` throws an error. What's a rule we can deduce about classes from this?</summary>
-Class names must begin with a capital letter.
+  <summary><strong>What was the purpose of a constructor function in Javascript classes?</strong></summary>
+
+  > To initialize any properties we want a class instance to have when it is created.
+
 </details>
 
-<details>
-<summary>`class UserName` works fine. `class User Name` throws an error. What's a rule we can deduce about classes from this?</summary>
-Class names must not contain spaces.
-</details>
-
-## Initializing Users (10:20 - 10:30)
-
-Copy and paste this code into your REPL:
+Ruby classes have an equivalent to Javascript constructors: the `initialize` method!
 
 ```rb
 class User
@@ -162,8 +184,6 @@ class User
 end
 ```
 
-Then, copy and paste these lines **one at a time**:
-
 ```rb
 alice = User.new
 alice.greet
@@ -176,26 +196,24 @@ User.new
 User.new
 ```
 
-
-#### Hypothesis Building (2 min)
-
-In the next 2 minutes, write down 3 sentences venturing an educated guess when we might use each of these two methods, `def initialize` and `new`, describing where each would be written.
-
-
 <details>
-<summary>What can we conclude about the relationship of `def initialize` and `.new`?</summary>
-The `initialize` method is run every time `.new` is called.
+  <summary>What can we conclude about the relationship of `def initialize` and `.new`? (Hint: it serves the same purpose as Javascript's constructor function)</summary>
+
+  > The `initialize` method is run every time `.new` is called.
+
 </details>
 
 <details>
-<summary>How is this different from other User methods we've seen?</summary>
-`initialize` and `new` aren't the same word. Going by what else we've seen, we'd expect to see `User.initialize` correspond to `def initialize`. (Under the hood, `.new` is a separate class method that calls the `initialize` instance method.)
+  <summary>How is this different from other User methods we've seen?</summary>
+
+  > `initialize` and `new` aren't the same word. Going by what else we've seen, we'd expect to see `User.initialize` correspond to `def initialize`. (Under the hood, `.new` is a separate class method that calls the `initialize` instance method.)
+
 </details>
 
 
-### You can pass arguments to `initialize`
+### You Can Pass Arguments to `initialize`
 
-`initialize` is a special method in its relationship to `.new`, but otherwise it behaves like any other method. This means you can pass arguments to it:
+`initialize` is a special method in its relationship to `.new`, but otherwise it behaves like any other method. This means you can pass arguments to it (again, just like Javascript's `constructor`)...
 
 ```rb
 class User
@@ -214,9 +232,9 @@ juan = User.new("Juan", "Juanson")
 # => #<User:0x007f96f312b240>
 ```
 
-### Instance variables (10:30 - 10:40)
+### Instance Variables (10 minutes / 0:40)
 
-I'd like to have a method that prints the full name of the user.
+Let's create a method that prints the full name of the user.
 
 In Ruby, normal variables are available only inside the method in which they were created.
 
@@ -247,13 +265,20 @@ juan.full_name
 # => "Juan Juanson"
 ```
 
-### Getting and setting
+<details>
+  <summary><strong>What is the Javascript equivalent of an instance variable?</strong></summary>
 
-To **get** Juan's first name, I can't simply type `juan.firstname`. To **set** Juan's first name, I can't simply type `juan.firstname = "Jorge"`
+  > `this.firstname`
 
-The only things available **outside** an instance are its methods. `@firstname` is a property, not a method. We can't access 'data' inside of an instance unless it contains methods that let us do so.
+</details>
 
-To make it "gettable" and "settable", I'll need to create getter and setter methods for it.
+### Getting and Setting Properties
+
+To **get** Juan's first name, we can't simply type `juan.firstname`. To **set** Juan's first name, we can't simply type `juan.firstname = "Jorge"`
+
+The only things available **outside** an instance are its methods. `@firstname` is a property, not a method. We can't access data inside of an instance unless it contains methods that let us do so.
+
+To make a property "gettable" and "settable", we need to create "getter" and "setter" methods for it.
 
 ```rb
 class User
@@ -293,8 +318,6 @@ puts juan.get_firstname
 
 Recall how we couldn't simply type `juan.firstname="some other name"` in a prior example.
 
-Copy and paste this snippet into your REPL:
-
 ```rb
 class User
 
@@ -309,8 +332,6 @@ class User
 end
 ```
 
-Run these lines one at a time:
-
 ```rb
 alice = User.new
 alice.name = "Alice"
@@ -319,15 +340,13 @@ alice.set_name("Alice")
 puts alice.get_name
 ```
 
-Now, copy and paste this snippet into your REPL:
+If only there were a way to define a class so that we don't have to define a getter and setter method for every single property...
 
 ```rb
 class User
   attr_accessor :name
 end
 ```
-
-Now, run these lines one at a time:
 
 ```rb
 alice = User.new
@@ -336,15 +355,17 @@ puts alice.name
 ```
 
 <details>
-<summary>These have the same result, so we can deduce that `attr_accessor` is a shortcut that does what?</summary>
-It creates getter and setter methods for the `name` instance variable.
+  <summary>These have the same result, so we can deduce that `attr_accessor` is a shortcut that does what?</summary>
+
+  > It creates getter and setter methods for the `name` instance variable.
+
 </details>
 
 ### `attr_accessor` is actually a shortcut that combines two other shortcuts
 
 #### `attr_accessor` is `attr_reader` combined with `attr_writer`.
 
-`attr_reader` makes an attribute readable, `attr_writer` makes an attribute writeable. `attr_accessor` makes an attribute both readable AND writeable. 
+`attr_reader` makes an attribute readable, `attr_writer` makes an attribute writeable. `attr_accessor` makes an attribute both readable **AND** writeable.
 
 To illustrate the difference between `attr_reader` and `attr_writer`, let's have a look at the code below.
 
@@ -383,21 +404,22 @@ juan.full_name
 
 `attr_accessor` creates getters and setters.
 
-## Break  (10:50 - 11:00, 10 min)
+-------
 
-___
+## Break (10 minutes / 1:00)
 
-## You do: Monkies! (11:00 - 11:20, 20 min)
+-------
+
+## You Do: Monkies! (20 minutes / 1:20)
 
 For the next exercise, clone down the repo linked below:
 https://github.com/ga-wdi-exercises/oop_monkey
 
+-------
 
-## Class-level stuff
+## Class Attributes / Variables (5 minutes / 1:25)
 
-### Class Attributes a.k.a. Class Variables (11:20 - 11:25, 5 min)
-
-I'd like to have a way of getting all users.
+Let's come up with a way of keeping track of how many users have been created total...
 
 ```rb
 class User
@@ -417,11 +439,8 @@ class User
   def full_name
     return "#{@firstname.capitalize} #{@lastname.capitalize}"
   end
-
-
 end
 ```
-
 
 ```rb
 juan = User.new("Juan", "Juanson")
@@ -441,13 +460,13 @@ steve.count
 # => 3
 ```
 
-But there's somehting weird going on here: note that we aren't counting the number of Steves, Jorges, or Juans. Think about what `.count` might be returning; more on this in a moment!
+But there's something weird going on here: note that we aren't counting the number of Steves, Jorges or Juans. Think about what `.count` might be returning. More on this in a moment!
 
-A variable name beginning with `@@` is a **class variable**. Every instance of a class has the same value for this variable. It cannot be accessed with `attr_accessor`
+A variable name beginning with `@@` is a **class variable**. Every instance of a class has the same value for this variable. It cannot be accessed with `attr_accessor`.
 
-### Methods (11:25 - 11:30, 5 min)
+### Methods (5 minutes / 1:30)
 
-`.full_name` is an *instance method*: it's called on an instance of User.
+`.full_name` is an *instance method*. It's called on an instance of User.
 
 There are also methods you call on `User` itself. So far we've only seen `.new`.
 
@@ -477,7 +496,6 @@ class User
 end
 ```
 
-
 ```rb
 juan = User.new("Juan", "Juanson")
 # ArgumentError: wrong number of arguments (given 2, expected 0)
@@ -489,14 +507,16 @@ juan.count
 #
 ```
 
-#### Take a few seconds to think about why we don't get a
+<details>
+  <summary><strong>Why does that last line of code work?</strong></summary>
 
-A method name beginning with the class name is a **class method**. It is attached to the class itself, rather than to instances.
+  > A method name beginning with the class name is a **class method**. It is attached to the class itself, rather than to instances.
 
-### Class attributes/variables and Class methods together (11:30 - 11:40)
+</details>
 
-`User.count` would make much more sense than `steve.count`.
+### Class Attributes and Methods Together (10 minutes / 1:40)
 
+It would make more sense if, in order to retrieve the total number of users, we ran `User.count` instead of `steve.count`...
 
 ```rb
 class User
@@ -513,14 +533,13 @@ class User
     return "#{@firstname.capitalize} #{@lastname.capitalize}"
   end
 
-  # Below is one way to define a Class Method!!! You can also use self.count
+  # You could also define this as `def self.count`, where self represents the class
   def User.count
     return @@all
   end
 
 end
 ```
-
 
 ```rb
 juan = User.new("Juan", "Juanson")
@@ -530,9 +549,7 @@ User.count
 # => 1
 ```
 
-
-
-## Self (11:40 - 11:45, 5 min)
+## Self (5 minutes / 1:45)
 
 `self` is a special variable that contains the current instance of an object (like `this` in Javascript). It's how the object refers to it*self*.
 
@@ -554,7 +571,7 @@ class User
     return "#{@firstname.capitalize} #{@lastname.capitalize}"
   end
 
-  #can also be written as: def User.all
+  # Can also be written as `def User.all`
   def self.all
     return @@all
   end
@@ -573,7 +590,71 @@ User.all
 # => [#<User @firstname="Juan">, #<User @firstname="Jorge">, #<User @firstname="Steve">]
 ```
 
-## Public and Private (11:45 - 11:50, 5 min)
+## Break (10 minutes / 1:55)
+
+## You Do: Orange Tree (25 minutes / 2:20)
+
+> From Chris Pine's "Learn to Program": p 133, section 13.6
+
+http://locker.wdidc.org/Ruby/Learn%20to%20Program.pdf
+
+Make an OrangeTree class that has...
+
+- a `height` method that returns its height in feet
+- a `one_year_passes` method that, when called, ages the tree one year
+
+> Test your code.
+
+- Each year the tree grows taller by one foot
+- After 50 years the tree should "die" (its height goes to 0)
+
+> Test your code.
+
+- After the first 5 years, the tree bears 20 oranges
+- You should be able to `count_the_oranges`, which returns the number of oranges on the tree
+
+> Test your code.
+
+- You should be able to `pick_an_orange`, which reduces the number of oranges by 1
+- Ensure that your tree cannot have negative oranges
+- Ensure that after each year your tree has 20 total oranges again
+
+> Test your code.
+
+- The number of oranges the tree bears each year is equal to 20 plus the age of the tree
+
+#### Bonus
+
+Create an `OrangeTreeOrchard` class that manages multiple `OrangeTrees`. It can...
+
+- Age all the trees by one year
+- Pick and count all the fruit
+- Calculate average height and fruit of all orange trees
+
+## Closing / Questions (10 minutes / 2:30)
+
+## Sample Questions
+
+- Create a Ruby class for a student, initialized with a name and an age.
+  - Write a getter for name and age, and a setter for name only
+  - Create a new student and demonstrate using all the methods
+- Explain the difference between local and instance variables
+
+## Glossary
+
+* **Class**: a blueprint for objects
+* **Instance**: an object that is created using a class
+* **Instance Variable**: a property that is particular to an instance
+* **Class Variable:** a property that is accessible by all instances of a class
+* **Instance Method**: a method that can be called by an instance of a class (e.g., `sample_user.reset_password`)
+* **Class Method**: a method that can be called by a class (e.g., `User.list_user`)
+* **`initialize`**: a class method that, when triggered, creates an instance and assigns initial properties
+* **`.new`**: a class method that, when called, triggers its `initialize` method
+* **`attr_accessor`**: a setting that allows you to directly "get" or "set" an instance variable
+
+------
+
+## Bonus: Public and Private (5 minutes / 1:50)
 
 ### You Do
 
@@ -612,7 +693,6 @@ class User
 end
 ```
 
-
 ```rb
 juan = User.new("Juan", "Juanson", "wombat")
 # #<User @firstname="Juan" @password="tabmow">
@@ -624,48 +704,7 @@ Putting `private` in front of methods means they can be used inside the object, 
 
 `private` is useful mostly for keeping things organized. Consider jQuery: It's already cluttered enough, with all these methods like `.fadeOut` and `.css`. It has lots of other methods hidden inside it that we don't really need to know about.
 
-## Break (11:50 - 12:00, 10 min)
-
-## You do: Orange Tree (12:00 - 12:20, 20 min)
-
-From Chris Pine's "Learn to Program": p 133, section 13.6
-
-http://locker.wdidc.org/Ruby/Learn%20to%20Program.pdf
-
-Make an OrangeTree class that has:
-
-- a `height` method that returns its height in feet
-- a `one_year_passes` method that, when called, ages the tree one year
-
-### Check In
-
-- Each year the tree grows taller by one foot
-- After 50 years the tree should "die" (its height goes to 0)
-
-### Check In
-
-- After the first 5 years, the tree bears 20 oranges
-- You should be able to `count_the_oranges`, which returns the number of oranges on the tree
-
-### Check In
-
-- You should be able to `pick_an_orange`, which reduces the number of oranges by 1
-- Ensure that your tree cannot have negative oranges
-- Ensure that after each year your tree has 20 total oranges again
-
-### Check In
-
-- The number of oranges the tree bears each year is equal to 20 plus the age of the tree
-
-#### Bonus!
-
-Create an OrangeTreeOrchard class that manages multiple OrangeTrees. It can:
-
-- Age all the trees by one year
-- pick and count all the fruit
-- calculate average height and fruit of all orange trees.
-
-## Why OOP? (10 mintues)
+## Review: Why OOP?
 
 #### Easy to Understand
 
@@ -725,10 +764,3 @@ Clone this exercise and follow the instructions in the readme.
     - [Part 2](https://www.youtube.com/watch?v=ZgZCtns27pE)
     - [Part 3](https://youtu.be/npM249VzB0I)
     - [Part 4](https://youtu.be/su_XYcj_Cpk)
-
-## Sample Questions
-
-- Create a Ruby class for a student, initialized with a name and an age.
-  - Write a getter for name and age, and a setter for name only
-  - Create a new student and demonstrate using all the methods
-- Explain the difference between local and instance variables
