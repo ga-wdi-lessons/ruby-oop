@@ -39,7 +39,7 @@ Spend three minutes working with a partner to come up with at least three types 
 
 > A helpful approach might be to take the "nouns" involved in the application and say they are objects.
 
-#### Facebook
+#### 1. Facebook
 
 > "Facebook is an app where users can post statuses and add friends."
 
@@ -52,7 +52,7 @@ Spend three minutes working with a partner to come up with at least three types 
 
 </details>
 
-#### Amazon
+#### 2. Amazon
 
 > "Amazon is a site where people can order products."
 
@@ -65,26 +65,11 @@ Spend three minutes working with a partner to come up with at least three types 
 
 </details>
 
-#### A Homework Grading App
+#### 3. A Homework Grading App
 
-<details>
-  <summary>Some ideas...</summary>
+#### 4. An Attendance Taking App
 
-</details>
-
-#### An Attendance Taking App
-
-<details>
-  <summary>Some ideas...</summary>
-
-</details>
-
-#### Uber
-
-<details>
-  <summary>Some ideas...</summary>
-
-</details>
+#### 5. Uber
 
 ## Our First Object (10 minutes / 0:20)
 
