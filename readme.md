@@ -61,7 +61,7 @@ A **class** is a blueprint from which objects are made. In javascript we used cl
 Let's define a `User` class. We'll be using `binding.pry` to test our code.
 
 ```bash
-$ touch.app.rb
+$ touch app.rb
 $ gem install pry # run this is you haven't installed pry yet
 ```
 
