@@ -112,35 +112,37 @@ puts alice.greet
 puts bob.greet
 ```
 
-- Is `User` a(n)...
-  - class?
-  - instance?
-  - object?
+#### Some Questions
 
-- Is `alice` a(n)...
-  - class?
-  - instance?
-  - object?
+Is `User` a(n)...
+- class?
+- instance?
+- object?
 
-- `User.greet` throws an error. `alice.greet` works fine. So we can deduce that the `greet` method can only be called on...
-  - instances of the `User` class
-  - the `User` class itself
-  - objects
+Is `alice` a(n)...
+- class?
+- instance?
+- object?
 
-- Thus, would it make sense to call `greet` a(n)...
-  - "instance method"?
-  - "class method"?
-  - "object method"?
+`User.greet` throws an error. `alice.greet` works fine. So we can deduce that the `greet` method can only be called on...
+- instances of the `User` class
+- the `User` class itself
+- objects
 
-- `User.new` works fine. `alice.new` throws an error. So we can deduce that the `new` method can only be called on...
-  - instances of the `User` class
-  - the `User` class itself
-  - objects
+Thus, would it make sense to call `greet` a(n)...
+- "instance method"?
+- "class method"?
+- "object method"?
 
-- Thus, it would be make sense to call `new` a(n)...
-  - "instance method"
-  - "class method"
-  - "object method"
+`User.new` works fine. `alice.new` throws an error. So we can deduce that the `new` method can only be called on...
+- instances of the `User` class
+- the `User` class itself
+- objects
+
+Thus, it would be make sense to call `new` a(n)...
+- "instance method"
+- "class method"
+- "object method"
 
 <details>
 
