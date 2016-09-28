@@ -44,7 +44,7 @@ Spend three minutes working with a partner to come up with at least three types 
 > "Facebook is an app where users can post statuses and add friends."
 
 <details>
-  <summary><strong>Some ideas...</strong></summary>
+  <summary>Some ideas...</summary>
 
   - Users
   - Statuses
@@ -57,7 +57,7 @@ Spend three minutes working with a partner to come up with at least three types 
 > "Amazon is a site where people can order products."
 
 <details>
-  <summary><strong>Some ideas...</strong></summary>
+  <summary>Some ideas...</summary>
 
   - People
   - Orders
@@ -68,21 +68,21 @@ Spend three minutes working with a partner to come up with at least three types 
 #### A Homework Grading App
 
 <details>
-  <summary><strong>Some ideas...</strong></summary>
+  <summary>Some ideas...</summary>
 
 </details>
 
 #### An Attendance Taking App
 
 <details>
-  <summary><strong>Some ideas...</strong></summary>
+  <summary>Some ideas...</summary>
 
 </details>
 
 #### Uber
 
 <details>
-  <summary><strong>Some ideas...</strong></summary>
+  <summary>Some ideas...</summary>
 
 </details>
 
@@ -682,6 +682,7 @@ Create an `OrangeTreeOrchard` class that manages multiple `OrangeTrees`. It can.
 * **Class Method**: a method that can be called by a class (e.g., `User.list_user`)
 * **`initialize`**: a class method that, when triggered, creates an instance and assigns initial properties
 * **`.new`**: a class method that, when called, triggers its `initialize` method
+* **`attr_accessor`**: a setting that allows you to directly "get" or "set" an instance variable
 
 ------
 
