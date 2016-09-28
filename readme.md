@@ -601,6 +601,8 @@ http://locker.wdidc.org/Ruby/Learn%20to%20Program.pdf
 Make an OrangeTree class that has...
 
 - a `height` method that returns its height in feet
+  - it's initial value should be determined by some input
+  - hint: you don't necessarily have to define the method
 - a `one_year_passes` method that, when called, ages the tree one year
 
 > Test your code.
