@@ -4,7 +4,6 @@
 
 - Explain the relationship between `.new()` and `def initialize()`
 - Distinguish whether a piece of data is best-suited to being stored in a local, instance, or class variable
-- Determine whether given data and methods are best-suited to being "public" or "private"
 - Explain whether given data is best-suited to having its accessibility defined by `attr_accessor`, `attr_reader`, `attr_writer`, or none of the above
 - Describe the relationship of `attr_` and "getter" and "setter" methods
 - Properly define instance and class variables
