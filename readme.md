@@ -272,13 +272,6 @@ juan.full_name
 # => "Juan Juanson"
 ```
 
-<details>
-  <summary><strong>What is the Javascript equivalent of an instance variable?</strong></summary>
-
-  > `this.firstname`
-
-</details>
-
 ### Getting and Setting Properties
 
 To **get** Juan's first name, we can't simply type `juan.firstname`. To **set** Juan's first name, we can't simply type `juan.firstname = "Jorge"`
@@ -510,6 +503,7 @@ juan = User.new
 # "I've hijacked a class method and broken core functionality!"
 juan.firstname = "Juan"
 # => Error!
+```
 
 ### Class Attributes and Methods Together (10 minutes / 1:40)
 
