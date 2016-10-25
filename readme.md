@@ -462,50 +462,9 @@ But there's something weird going on here: note that we aren't counting the numb
 
 A variable name beginning with `@@` is a **class variable**. Every instance of a class has the same value for this variable. It cannot be accessed with `attr_accessor`. You have to actually create a method to access it.
 
-### Methods (5 minutes / 1:30)
-
-`.full_name` is an *instance method*. It's called on an instance of User.
-
-There are also methods you call on `User` itself. So far we've only seen `.new`.
-
-```rb
-class User
-  attr_accessor :firstname, :lastname
-  @@all = 0
-
-  def initialize(firstname, lastname)
-    @firstname = firstname
-    @lastname = lastname
-    @@all += 1
-  end
-
-  def full_name
-    return "#{@firstname.capitalize} #{@lastname.capitalize}"
-  end
-
-  def User.count
-    return @@all
-  end
-
-  def User.new
-    puts "I've hijacked a class method and broken core functionality!"
-  end
-
-end
-```
-
-```rb
-juan = User.new("Juan", "Juanson")
-# ArgumentError: wrong number of arguments (given 2, expected 0)
-juan = User.new
-# "I've hijacked a class method and broken core functionality!"
-juan.firstname = "Juan"
-# => Error!
-```
-
 ### Class Attributes and Methods Together (10 minutes / 1:40)
 
-A method name beginning with the class name is a **class method**. It is attached to the class itself, rather than to instances. It would make more sense if, in order to retrieve the total number of users, we ran `User.count` instead of `steve.count`...
+A method name beginning with the class name is a **class method**. It is attached to the class itself, rather than to instances. There are also methods you call on `User` itself. So far we've only seen `.new`.It would make more sense if, in order to retrieve the total number of users, we ran `User.count` instead of `steve.count`...
 
 ```rb
 class User
