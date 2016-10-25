@@ -54,7 +54,7 @@ Spend three minutes working with a partner to come up with at least three types 
 
 ## Our First Object (10 minutes / 0:20)
 
-An **object** is an **instance** of a **class**. What does this mean? Say that we have a car. Each of us has a mental model of what a car is: it has four wheels, runs on gas, has a steering wheel that allows us to drive it, etc. This is like a **class**. Now, when we see a car in front of us, this is like an **instance**, it's an actual **object** in front of us. Each **object** has its blueprint, and is an **instance** of that blueprint or **class**.
+ Say that we have a car. Each of us has a mental model of what a car is: it has four wheels, runs on gas, has a steering wheel that allows us to drive it, etc. This is like a **class**. Now, when we see a car in front of us, this is like an **instance**, it's an actual **object** in front of us. Each **object** has its blueprint, and is an **instance** of that blueprint or **class**.
 
 A **class** is a blueprint from which objects are made. In javascript we used classes, which operate very similarly to **classes** in Ruby. Each object made from a class is an instance of that class. Each instance of a class is an object.
 
