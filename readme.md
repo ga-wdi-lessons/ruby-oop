@@ -8,7 +8,6 @@
 - Describe the relationship of `attr_` and "getter" and "setter" methods
 - Properly define instance and class variables
 - List two ways of defining class methods
-- Explain the different use-cases for classes and modules
 
 ## Framing: What is OOP?
 
