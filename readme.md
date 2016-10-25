@@ -56,7 +56,7 @@ Spend three minutes working with a partner to come up with at least three types 
 
 An **object** is an **instance** of a **class**. What does this mean? Say that we have a car. Each of us has a mental model of what a car is: it has four wheels, runs on gas, has a steering wheel that allows us to drive it, etc. This is like a **class**. Now, when we see a car in front of us, this is like an **instance**, it's an actual **object** in front of us. Each **object** has its blueprint, and is an **instance** of that blueprint or **class**.
 
-A **class** is a blueprint from which objects are made. In javascript we used classes, which operate very similarly to **classes** -- yes, the same name -- in Ruby. Each object made from a class is an instance of that class. Each instance of a class is an object.
+A **class** is a blueprint from which objects are made. In javascript we used classes, which operate very similarly to **classes** in Ruby. Each object made from a class is an instance of that class. Each instance of a class is an object.
 
 Let's define a `User` class. We'll be using `binding.pry` to test our code.
 
@@ -108,8 +108,8 @@ bob = User.new
 bob.set_name_to("Bob")
 puts bob.get_name
 
-puts alice.greet
-puts bob.greet
+alice.greet
+bob.greet
 ```
 
 #### Some Questions
@@ -117,32 +117,26 @@ puts bob.greet
 Is `User` a(n)...
 - class?
 - instance?
-- object?
 
 Is `alice` a(n)...
 - class?
 - instance?
-- object?
 
 `User.greet` throws an error. `alice.greet` works fine. So we can deduce that the `greet` method can only be called on...
 - instances of the `User` class
 - the `User` class itself
-- objects
 
 Thus, would it make sense to call `greet` a(n)...
 - "instance method"?
 - "class method"?
-- "object method"?
 
 `User.new` works fine. `alice.new` throws an error. So we can deduce that the `new` method can only be called on...
 - instances of the `User` class
 - the `User` class itself
-- objects
 
 Thus, it would be make sense to call `new` a(n)...
 - "instance method"
 - "class method"
-- "object method"
 
 <details>
 
@@ -171,6 +165,8 @@ Thus, it would be make sense to call `new` a(n)...
 Ruby classes have an equivalent to Javascript constructors: the `initialize` method!
 
 ```rb
+require 'pry'
+
 class User
 
   def initialize
@@ -182,6 +178,10 @@ class User
   end
 
 end
+
+binding.pry
+
+puts "end of file"
 ```
 
 ```rb
@@ -191,9 +191,10 @@ alice.greet
 bob = User.new
 bob.greet
 
-User
 User.new
-User.new
+
+puts alice
+puts bob
 ```
 
 <details>
@@ -216,6 +217,8 @@ User.new
 `initialize` is a special method in its relationship to `.new`, but otherwise it behaves like any other method. This means you can pass arguments to it (again, just like Javascript's `constructor`)...
 
 ```rb
+require "pry"
+
 class User
 
   def initialize(firstname, lastname)
@@ -223,6 +226,10 @@ class User
   end
 
 end
+
+binding.pry
+
+puts "end of file"
 ```
 
 ```rb
@@ -462,7 +469,7 @@ steve.count
 
 But there's something weird going on here: note that we aren't counting the number of Steves, Jorges or Juans. Think about what `.count` might be returning. More on this in a moment!
 
-A variable name beginning with `@@` is a **class variable**. Every instance of a class has the same value for this variable. It cannot be accessed with `attr_accessor`.
+A variable name beginning with `@@` is a **class variable**. Every instance of a class has the same value for this variable. It cannot be accessed with `attr_accessor`. You have to actually create a method to access it.
 
 ### Methods (5 minutes / 1:30)
 
@@ -485,7 +492,7 @@ class User
     return "#{@firstname.capitalize} #{@lastname.capitalize}"
   end
 
-  def count
+  def User.count
     return @@all
   end
 
@@ -503,20 +510,10 @@ juan = User.new
 # "I've hijacked a class method and broken core functionality!"
 juan.firstname = "Juan"
 # => Error!
-juan.count
-#
-```
-
-<details>
-  <summary><strong>Why does that last line of code work?</strong></summary>
-
-  > A method name beginning with the class name is a **class method**. It is attached to the class itself, rather than to instances.
-
-</details>
 
 ### Class Attributes and Methods Together (10 minutes / 1:40)
 
-It would make more sense if, in order to retrieve the total number of users, we ran `User.count` instead of `steve.count`...
+A method name beginning with the class name is a **class method**. It is attached to the class itself, rather than to instances. It would make more sense if, in order to retrieve the total number of users, we ran `User.count` instead of `steve.count`...
 
 ```rb
 class User
@@ -553,7 +550,7 @@ User.count
 
 `self` is a special variable that contains the current instance of an object (like `this` in Javascript). It's how the object refers to it*self*.
 
-`self` has another context as well: `def self.all` refers to `class User`. What does this mean? It means that the method `.all` can only be called on the class `User`, much like `.new`, and is therefore a class method.
+`self` has another context as well: `def self.all` Here, `self` refers to `class User`. What does this mean? It means that the method `.all` is called on the class `User`, much like `.new`, and is therefore a class method.
 
 ```rb
 class User
@@ -563,6 +560,7 @@ class User
   def initialize(firstname, lastname)
     @firstname = firstname
     @lastname = lastname
+    # here, `self` refers to the current instance
     puts "Creating #{self.firstname}"
     @@all.push(self)
   end
@@ -572,6 +570,7 @@ class User
   end
 
   # Can also be written as `def User.all`
+  # here, `self` refers to the class
   def self.all
     return @@all
   end
@@ -596,14 +595,12 @@ User.all
 
 > From Chris Pine's "Learn to Program": p 133, section 13.6
 
-http://locker.wdidc.org/Ruby/Learn%20to%20Program.pdf
-
 Make an OrangeTree class that has...
 
 - a `height` method that returns its height in feet
   - it's initial value should be determined by some input
   - hint: you don't necessarily have to define the method
-- a `one_year_passes` method that, when called, ages the tree one year
+- a `one_year_passes` method that, when called, ages the tree one year. Start the age at `0`.
 
 > Test your code.
 
