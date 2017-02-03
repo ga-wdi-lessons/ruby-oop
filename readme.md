@@ -316,9 +316,9 @@ harry = User.new("Harry", "Potter")
 # => #<User:0x007faf3903f670 @firstname="Harry", @lastname="Potter">
 puts harry.get_firstname
 # "Harry"
-harry.set_firstname("Harry")
+harry.set_firstname("Ginny")
 puts harry.get_firstname
-# "Harry"
+# "Ginny"
 ```
 
 ## attr_accessor
@@ -543,8 +543,8 @@ draco = User.new("Draco", "Malfoy")
 # "Creating Draco"
 luna = User.new("Luna", "Lovegood")
 # "Creating Luna"
-bellatrix = User.new("Bellatrix", "Lestrange")
-# "Creating Belatrix"
+bellatrix = User.new("Bellatrix", "LeStrange")
+# "Creating Bellatrix"
 User.all
 # => [#<User @firstname="Draco">, #<User @firstname="Luna">, #<User @firstname="Bellatrix">]
 ```
@@ -654,7 +654,7 @@ end
 
 ```rb
 harry = User.new("Harry", "Potter", "Expecto Patronum")
-# #<User @firstname="Harry" @password="Expecto Patronum">
+# #<User @firstname="Harry" @password="munortaP otcepxE">
 harry.encrypt("Expecto Patronum")
 # Error! Private method `encrypt`
 ```
