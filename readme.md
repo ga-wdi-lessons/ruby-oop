@@ -13,40 +13,42 @@
 
 Ruby is an object-oriented language. That means it's based on the idea that you'll build your application with objects in mind.
 
-As you learned with OOJS, an object is a collection of related attributes (aka properties) and methods (aka behavior). You can think of an object as a little machine: it has displays you can read and buttons you can push.
+As you learned with OOJS, an object is a collection of related attributes (properties) and methods (behavior). You can think of an object as a little machine: it has displays you can read and buttons you can push.
 
 When you write an object-oriented application, the idea is that you write the blueprints for these machines, and then you write a sequence of events your users can initiate in which these machines interact with each other.
 
-Much of the code you see today will be very similar to what you encountered in last week's OOJS class. That's because classes are a concept that have been around for quite some time but only just introduced in Javascript. Use this pre-existing knowledge to your advantage in today's class!
+Much of the code you see today will be very similar to what you encountered in last week's OOJS class. That's because classes are a concept that have been around for quite some time but only just introduced in Javascript (ECMAScript 2015/ES5). Use this pre-existing knowledge to your advantage in today's class!
 
 ## You Do: The OOP Process (10 minutes / 0:10)
 
 We've talked quite a bit about object oriented programming as a paradigm, but we haven't talked much about how to break a problem down into object components. Let's try one together...
 
-#### Example: Tic Tac Toe
+#### Example: Monopoly
 
-> "Tic Tac Toe is a game where players try to get three squares in a row."
+> "Monopoly is a game where players try to accumulate wealth through property ownership and money"
 
-- Game
+- Game Board
 - Players
-- Squares
+- Game Tokens
+- Property Cards
+- Money
 
 #### Example: Facebook
 
-> "Facebook is an app where users can post statuses and add friends."
+> "Facebook is an application where users can post statuses and add friends."
 
 - Users
 - Statuses
 - Friends
 
-Putting your idea in a nutshell gives you a starting place for what those objects may be.
+Breaking your ideas down gives you a starting place for what those objects may be.
 
 Spend three minutes working with a partner to come up with at least three types of objects that you might define when creating the following examples.
 
   1. Amazon
   2. A Homework Grading App
   3. An Attendance Taking App
-  4. Uber
+  4. Lyft
 
 > A helpful approach might be to take the "nouns" involved in the application and say they are objects.
 
@@ -57,6 +59,8 @@ Spend three minutes working with a partner to come up with at least three types 
 A **class** is a blueprint from which objects are made. In javascript we used classes, which operate very similarly to **classes** in Ruby. Each object made from a class is an instance of that class. Each instance of a class is an object.
 
 Let's define a `User` class. We'll be using `binding.pry` to test our code.
+
+Aside: pry is a ruby gem that allows us to work with ruby code in an IRB (interactive ruby shell). It's similar to working in our developer console in a web browser with javascript.
 
 ```bash
 $ touch app.rb
@@ -90,24 +94,24 @@ puts "end of file"
 <details>
   <summary><strong>What about this Ruby class looks similar to a Javascript class?</strong></summary>
 
-  > * The `class` keyword
-  > * The class contains methods
+  The `class` keyword. The class contains methods.
 
 </details>
+
 
 Now let's generate some instances of this class...
 
 ```rb
 alice = User.new
-alice.set_name_to("Alice")
+alice.set_name_to("alice")
 puts alice.get_name
 
-bob = User.new
-bob.set_name_to("Bob")
-puts bob.get_name
+madhatter = User.new
+madhatter.set_name_to("Mad Hatter")
+puts madhatter.get_name
 
 alice.greet
-bob.greet
+madhatter.greet
 ```
 
 #### Some Questions
@@ -186,26 +190,31 @@ puts "end of file"
 alice = User.new
 alice.greet
 
-bob = User.new
-bob.greet
+madhatter = User.new
+madhatter.greet
 
 User.new
 
 puts alice
-puts bob
+puts madhatter
 ```
 
 <details>
   <summary>What can we conclude about the relationship of `def initialize` and `.new`? (Hint: it serves the same purpose as Javascript's constructor function)</summary>
-
-  > The `initialize` method is run every time `.new` is called.
-
+<ul>
+  <li> The `initialize` method is run every time `.new` is called.</li>
+  <li> Use `.new` to create a new object.</li>
+  <li> `initialize` is called automatically if defined in a class.</li>
+  <li> `.new` is a method of the class.</li>
+  <li> `initialize` is a method of the instance.</li>
+  <li> Call to `new` must come first; until you call `new` there is no instance to call `initialize` on.</li>
+</ul>
 </details>
 
 <details>
   <summary>How is this different from other User methods we've seen?</summary>
 
-  > `initialize` and `new` aren't the same word. Going by what else we've seen, we'd expect to see `User.initialize` correspond to `def initialize`. (Under the hood, `.new` is a separate class method that calls the `initialize` instance method.)
+   `initialize` and `new` aren't the same word. Going by what else we've seen, we'd expect to see `User.initialize` correspond to `def initialize`. (Under the hood, `.new` is a separate class method that calls the `initialize` instance method.)
 
 </details>
 
@@ -232,8 +241,8 @@ puts "end of file"
 
 ```rb
 # pry
-juan = User.new("Juan", "Juanson")
-# I'm a new User named Juan Juanson
+harry = User.new("Harry", "Potter")
+# I'm a new User named Harry Potter
 # => #<User:0x007f96f312b240>
 ```
 
@@ -264,15 +273,15 @@ end
 
 ```rb
 # pry
-juan = User.new("Juan", "Juanson")
-# => #<User:0x007faf3903f670 @firstname="Juan", @lastname="Juanson">
-juan.full_name
-# => "Juan Juanson"
+harry = User.new("Harry", "Potter")
+# => #<User:0x007faf3903f670 @firstname="Harry", @lastname="Potter">
+harry.full_name
+# => "Harry Potter"
 ```
 
 ### Getting and Setting Properties
 
-To **get** Juan's first name, we can't simply type `juan.firstname`. To **set** Juan's first name, we can't simply type `juan.firstname = "Jorge"`
+To **get** Harry's first name, we can't simply type `harry.firstname`. To **set** Harry's first name, we can't simply type `harry.firstname = "Harry"`
 
 The only things available **outside** an instance are its methods. `@firstname` is a property, not a method. We can't access data inside of an instance unless it contains methods that let us do so.
 
@@ -303,18 +312,18 @@ end
 
 ```rb
 # pry
-juan = User.new("Juan", "Juanson")
-# => #<User:0x007faf3903f670 @firstname="Juan", @lastname="Juanson">
-puts juan.get_firstname
-# "Juan"
-juan.set_firstname("Jorge")
-puts juan.get_firstname
-# "Jorge"
+harry = User.new("Harry", "Potter")
+# => #<User:0x007faf3903f670 @firstname="Harry", @lastname="Potter">
+puts harry.get_firstname
+# "Harry"
+harry.set_firstname("Harry")
+puts harry.get_firstname
+# "Harry"
 ```
 
 ## attr_accessor
 
-Recall how we couldn't simply type `juan.firstname="some other name"` in a prior example.
+Recall how we couldn't simply type `Harry.firstname="some other name"` in a prior example.
 
 ```rb
 class User
@@ -384,21 +393,21 @@ class User
 end
 ```
 ```rb
-juan = User.new("Juan", "Juanson")
-juan.firstname
-# => "Juan"
-juan.lastname
+hermione = User.new("Hermione", "Granger")
+hermione.firstname
+# => "Hermione"
+hermione.lastname
 # => Error!
-juan.firstname = "Jorge"
+hermione.firstname = "Ginny"
 # => Error!
-juan.lastname = "Anderson"
-juan.full_name
-# => "Juan Anderson"
+hermione.lastname = "Weasley"
+hermione.full_name
+# => "Hermione Weasley"
 ```
 
-`attr_reader` creates a *getter* method only. Trying to do `juan.firstname = "Jorge"` will fail.
+`attr_reader` creates a *getter* method only. Trying to do `hermione.firstname = "Ginny"` will fail.
 
-`attr_writer` creates a *setter* method only. Trying to do `puts juan.lastname` will fail.
+`attr_writer` creates a *setter* method only. Trying to do `puts hermione.lastname` will fail.
 
 `attr_accessor` creates getters and setters.
 
@@ -441,30 +450,30 @@ end
 ```
 
 ```rb
-juan = User.new("Juan", "Juanson")
-juan.count
+harry = User.new("Harry", "Potter")
+harry.count
 # => 1
-jorge = User.new("Jorge", "Jorgeson")
-juan.count
+ron = User.new("Ron", "Weasley")
+harry.count
 # => 2
-jorge.count
+ron.count
 # => 2
-steve = User.new("Steve", "Steveson")
-juan.count
+draco = User.new("Draco", "Malfoy")
+harry.count
 # => 3
-jorge.count
+ron.count
 # => 3
-steve.count
+draco.count
 # => 3
 ```
 
-But there's something weird going on here: note that we aren't counting the number of Steves, Jorges or Juans. Think about what `.count` might be returning. More on this in a moment!
+But there's something weird going on here: note that we aren't counting the number of Rons, Harrys or Dracos. Think about what `.count` might be returning. More on this in a moment!
 
 A variable name beginning with `@@` is a **class variable**. Every instance of a class has the same value for this variable. It cannot be accessed with `attr_accessor`. You have to actually create a method to access it.
 
 ### Class Attributes and Methods Together (10 minutes / 1:40)
 
-A method name beginning with the class name is a **class method**. It is attached to the class itself, rather than to instances. There are also methods you call on `User` itself. So far we've only seen `.new`.It would make more sense if, in order to retrieve the total number of users, we ran `User.count` instead of `steve.count`...
+A method name beginning with the class name is a **class method**. It is attached to the class itself, rather than to instances. There are also methods you call on `User` itself. So far we've only seen `.new`.It would make more sense if, in order to retrieve the total number of users, we ran `User.count` instead of `harry.count`...
 
 ```rb
 class User
@@ -490,8 +499,8 @@ end
 ```
 
 ```rb
-juan = User.new("Juan", "Juanson")
-juan.count
+ginny = User.new("Ginny", "Weasley")
+ginny.count
 # => Error!
 User.count
 # => 1
@@ -530,14 +539,14 @@ end
 ```
 
 ```rb
-juan = User.new("Juan", "Juanson")
-# "Creating Juan"
-jorge = User.new("Jorge", "Jorgeson")
-# "Creating Jorge"
-steve = User.new("Steve", "Steveson")
-# "Creating Steve"
+draco = User.new("Draco", "Malfoy")
+# "Creating Draco"
+luna = User.new("Luna", "Lovegood")
+# "Creating Luna"
+bellatrix = User.new("Bellatrix", "Lestrange")
+# "Creating Belatrix"
 User.all
-# => [#<User @firstname="Juan">, #<User @firstname="Jorge">, #<User @firstname="Steve">]
+# => [#<User @firstname="Draco">, #<User @firstname="Luna">, #<User @firstname="Bellatrix">]
 ```
 
 ## Break (10 minutes / 1:55)
@@ -644,9 +653,9 @@ end
 ```
 
 ```rb
-juan = User.new("Juan", "Juanson", "wombat")
-# #<User @firstname="Juan" @password="tabmow">
-juan.encrypt("wombat")
+harry = User.new("Harry", "Potter", "Expecto Patronum")
+# #<User @firstname="Harry" @password="Expecto Patronum">
+harry.encrypt("Expecto Patronum")
 # Error! Private method `encrypt`
 ```
 
