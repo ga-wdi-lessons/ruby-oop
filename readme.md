@@ -17,7 +17,7 @@ As you learned with OOJS, an object is a collection of related attributes (prope
 
 When you write an object-oriented application, the idea is that you write the blueprints for these machines, and then you write a sequence of events your users can initiate in which these machines interact with each other.
 
-Much of the code you see today will be very similar to what you encountered in last week's OOJS class. That's because classes are a concept that have been around for quite some time but only just introduced in Javascript (ECMAScript 2015/ES5). Use this pre-existing knowledge to your advantage in today's class!
+Much of the code you see today will be very similar to what you encountered in last week's OOJS class. That's because classes are a concept that have been around for quite some time but only just introduced in Javascript (ECMAScript 2016/ES6). Use this pre-existing knowledge to your advantage in today's class!
 
 ## You Do: The OOP Process (10 minutes / 0:10)
 
@@ -60,7 +60,7 @@ A **class** is a blueprint from which objects are made. In javascript we used cl
 
 Let's define a `User` class. We'll be using `binding.pry` to test our code.
 
-Aside: pry is a ruby gem that allows us to work with ruby code in an IRB (interactive ruby shell). It's similar to working in our developer console in a web browser with javascript.
+> Aside: pry is a ruby gem that allows us to work with ruby code in an IRB (interactive ruby shell). It's similar to working in our developer console in a web browser with javascript.
 
 ```bash
 $ touch app.rb
