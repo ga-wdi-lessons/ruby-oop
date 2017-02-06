@@ -175,8 +175,16 @@ class User
     puts "I'm a new User"
   end
 
+  def set_name_to(some_string)
+    @name = some_string
+  end
+
+  def get_name
+    return @name
+  end
+
   def greet
-    puts "Nice to meet you!"
+    puts "Hi! My name is #{@name}!"
   end
 
 end
@@ -201,14 +209,12 @@ puts madhatter
 
 <details>
   <summary>What can we conclude about the relationship of `def initialize` and `.new`? (Hint: it serves the same purpose as Javascript's constructor function)</summary>
-<ul>
-  <li> The `initialize` method is run every time `.new` is called.</li>
-  <li> Use `.new` to create a new object.</li>
-  <li> `initialize` is called automatically if defined in a class.</li>
-  <li> `.new` is a method of the class.</li>
-  <li> `initialize` is a method of the instance.</li>
-  <li> Call to `new` must come first; until you call `new` there is no instance to call `initialize` on.</li>
-</ul>
+- The `initialize` method is run every time `.new` is called.
+- Use `.new` to create a new object.
+- `initialize` is called automatically if defined in a class.
+- `.new` is a method of the class.
+- `initialize` is a method of the instance.
+- Call to `new` must come first; until you call `new` there is no instance to call `initialize` on.
 </details>
 
 <details>
@@ -553,7 +559,7 @@ User.all
 
 ## You Do: Orange Tree (25 minutes / 2:20)
 
-> From Chris Pine's "Learn to Program": p 133, section 13.6
+> From Chris Pine's "Learn to Program - Second Edition": p 112, section 13.6
 
 Make an OrangeTree class that has...
 
