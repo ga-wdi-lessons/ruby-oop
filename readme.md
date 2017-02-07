@@ -357,7 +357,17 @@ If only there were a way to define a class so that we don't have to define a get
 
 ```rb
 class User
+
   attr_accessor :name
+
+  def get_name
+    return @name
+  end
+
+  def set_name(some_string)
+    @name = some_string
+  end
+
 end
 ```
 
