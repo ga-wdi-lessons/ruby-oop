@@ -5,7 +5,6 @@
 - Explain the relationship between `.new()` and `def initialize()`
 - Distinguish whether a piece of data is best-suited to being stored in a local, instance, or class variable
 - Explain whether given data is best-suited to having its accessibility defined by `attr_accessor`, `attr_reader`, `attr_writer`, or none of the above
-- Describe the relationship of `attr_` and "getter" and "setter" methods
 - Properly define instance and class variables
 - List two ways of defining class methods
 
@@ -54,9 +53,9 @@ Spend three minutes working with a partner to come up with at least three types 
 
 ## Our First Object (10 minutes / 0:20)
 
- Say that we have a car. Each of us has a mental model of what a car is: it has four wheels, runs on gas, has a steering wheel that allows us to drive it, etc. This is like a **class**. Now, when we see a car in front of us, this is like an **instance**, it's an actual **object** in front of us. Each **object** has its blueprint, and is an **instance** of that blueprint or **class**.
+ Say that we have a car. Each of us has a mental model of what a car is: it has four wheels, runs on gas, has a steering wheel that allows us to drive it, etc. This blueprint is like a **class**. Now, when we see a car in front of us, this is like an **instance**, it's an actual **object** in front of us. Each **object** has its blueprint, and is an **instance** of that blueprint or **class**.
 
-A **class** is a blueprint from which objects are made. In javascript we used classes, which operate very similarly to **classes** in Ruby. Each object made from a class is an instance of that class. Each instance of a class is an object.
+A **class** is a blueprint from which objects are made. In Javascript we used classes, which operate very similarly to **classes** in Ruby. Each object made from a class is an instance of that class. Each instance of a class is an object.
 
 Let's define a `User` class. We'll be using `binding.pry` to test our code.
 
@@ -64,7 +63,7 @@ Let's define a `User` class. We'll be using `binding.pry` to test our code.
 
 ```bash
 $ touch app.rb
-$ gem install pry # run this is you haven't installed pry yet
+$ gem install pry # run this if you haven't installed pry yet
 ```
 
 ```rb
@@ -95,7 +94,7 @@ puts "end of file"
   <summary><strong>What about this Ruby class looks similar to a Javascript class?</strong></summary>
 
   The `class` keyword. The class contains methods.
-
+r
 </details>
 
 
@@ -125,33 +124,38 @@ Is `alice` a(n)...
 - instance?
 
 `User.greet` throws an error. `alice.greet` works fine. So we can deduce that the `greet` method can only be called on...
-- instances of the `User` class
-- the `User` class itself
+- instances of the `User` class?
+- the `User` class itself?
 
 Thus, would it make sense to call `greet` a(n)...
 - "instance method"?
 - "class method"?
 
 `User.new` works fine. `alice.new` throws an error. So we can deduce that the `new` method can only be called on...
-- instances of the `User` class
-- the `User` class itself
+- instances of the `User` class?
+- the `User` class itself?
 
 Thus, it would be make sense to call `new` a(n)...
-- "instance method"
-- "class method"
+- "instance method"?
+- "class method"?
 
 <details>
 
-  <summary>`class User` works fine. `class user` throws an error. What's a rule we can deduce about classes from this?</summary>
+  <summary>
+    `class User` works fine. `class user` throws an error. What's a rule we can deduce about classes from this?
+  </summary>
 
   > Class names must begin with a capital letter. This is not optional.
 
 </details>
 
-<details>
-  <summary>`class UserName` works fine. `class User Name` throws an error. What's a rule we can deduce about classes from this?</summary>
 
-  > Class names must not contain spaces.
+<details>
+  <summary>
+    `class UserName` works fine. `class User Name` throws an error. What's a rule we can deduce about classes from this?
+  </summary>
+
+  > Class names cannot contain spaces.
 
 </details>
 
@@ -201,7 +205,6 @@ alice.greet
 madhatter = User.new
 madhatter.greet
 
-User.new
 
 puts alice
 puts madhatter
@@ -218,9 +221,9 @@ puts madhatter
 </details>
 
 <details>
-  <summary>How is this different from other User methods we've seen?</summary>
+  <summary>How is this different from other User instance methods we've seen?</summary>
 
-   `initialize` and `new` aren't the same word. Going by what else we've seen, we'd expect to see `User.initialize` correspond to `def initialize`. (Under the hood, `.new` is a separate class method that calls the `initialize` instance method.)
+   `initialize` can only be called by the `.new` class method (i.e. it only runs once when the object is initially created).
 
 </details>
 
@@ -258,9 +261,7 @@ Let's create a method that prints the full name of the user.
 
 In Ruby, normal variables are available only inside the method in which they were created.
 
-If you put an `@` before the variable's name, it's available inside the entire `instance` in which it was created.
-
-This is an instance variable.
+If you put an `@` before the variable's name, it becomes an instance variable and therefore available inside the entire `instance` in which it was created.
 
 ```rb
 class User
@@ -329,28 +330,38 @@ puts harry.get_firstname
 
 ## attr_accessor
 
-Recall how we couldn't simply type `Harry.firstname="some other name"` in a prior example.
+Recall how we couldn't simply type `Harry.firstname = "some other name"` the previous example.
 
 ```rb
 class User
 
-  def get_name
-    return @name
+  def initialize(firstname, lastname)
+    @firstname = firstname
+    @lastname = lastname
   end
 
-  def set_name(some_string)
-    @name = some_string
+  def full_name
+    return "#{@firstname.capitalize} #{@lastname.capitalize}"
+  end
+
+  def get_firstname
+    return @firstname
+  end
+
+  def set_firstname(firstname)
+    @firstname = firstname
   end
 
 end
 ```
 
 ```rb
-alice = User.new
-alice.name = "Alice"
+harry = User.new("Harry", "Potter")
+harry.firstname = "Ginny"
 # This throws an error
-alice.set_name("Alice")
-puts alice.get_name
+harry.set_firstname("Ginny")
+puts harry.get_firstname
+# =>
 ```
 
 If only there were a way to define a class so that we don't have to define a getter and setter method for every single property...
@@ -358,14 +369,15 @@ If only there were a way to define a class so that we don't have to define a get
 ```rb
 class User
 
-  attr_accessor :name
+  attr_accessor :firstname, :lastname
 
-  def get_name
-    return @name
+  def initialize(firstname, lastname)
+    @firstname = firstname
+    @lastname = lastname
   end
 
-  def set_name(some_string)
-    @name = some_string
+  def full_name
+    return "#{@firstname.capitalize} #{@lastname.capitalize}"
   end
 
 end
@@ -378,9 +390,9 @@ puts alice.name
 ```
 
 <details>
-  <summary>These have the same result, so we can deduce that `attr_accessor` is a shortcut that does what?</summary>
+  <summary>We now can directly access properties on the User instance, so we can deduce that `attr_accessor` is a shortcut that does what?</summary>
 
-  > It creates getter and setter methods for the `name` instance variable.
+  > It creates getter and setter methods for the `firstname` instance variable.
 
 </details>
 
@@ -426,7 +438,7 @@ hermione.full_name
 `attr_writer` creates a *setter* method only. Trying to do `puts hermione.lastname` will fail.
 
 `attr_accessor` creates getters and setters.
-
+> You will most commonly use `attr_accessor`
 -------
 
 ## Break (10 minutes / 1:00)
