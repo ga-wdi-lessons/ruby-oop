@@ -20,7 +20,7 @@ Much of the code you see today will be very similar to what you encountered in l
 
 ## You Do: The OOP Process (10 minutes / 0:10)
 
-We've talked quite a bit about object oriented programming as a paradigm, but we haven't talked much about how to break a problem down into object components. Let's try one together...
+We've talked quite a bit about object oriented programming as a paradigm, but we haven't talked much about how to break a problem down into object components. 
 
 #### Example: Monopoly
 
@@ -42,7 +42,7 @@ We've talked quite a bit about object oriented programming as a paradigm, but we
 
 Breaking your ideas down gives you a starting place for what those objects may be.
 
-Spend three minutes working with a partner to come up with at least three types of objects that you might define when creating the following examples.
+Spend 10 minutes working with a partner to come up with at least three types of objects that you might define when creating the following examples. Add your responses as a comment on [this issue](https://github.com/ga-wdi-lessons/ruby-oop/issues/17). We'll go over your answers as a class. 
 
   1. Amazon
   2. A Homework Grading App
