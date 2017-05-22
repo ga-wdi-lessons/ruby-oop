@@ -94,7 +94,6 @@ puts "end of file"
   <summary><strong>What about this Ruby class looks similar to a Javascript class?</strong></summary>
 
   The `class` keyword. The class contains methods.
-r
 </details>
 
 
@@ -384,9 +383,9 @@ end
 ```
 
 ```rb
-alice = User.new
-alice.name = "Alice"
-puts alice.name
+nayana = User.new("Nayana", "Davis")
+nayana.firstname = "Nayana"
+puts nayana.firstname
 ```
 
 <details>
